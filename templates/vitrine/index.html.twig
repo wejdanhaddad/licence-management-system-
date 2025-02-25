@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container my-5 p-4" style="background-color: #fffafc; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <h1 class="text-center mb-4" style="color: #075f5e; font-family: 'Poppins', sans-serif; font-size: 2.2rem; font-weight: 600;">
+        Nos Services
+    </h1>
+
+    {% if services|length > 0 %}
+        <div class="row g-4">
+            {% for service in services %}
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm" 
+                         style="border-radius: 15px; transition: transform 0.3s ease-in-out;">
+                        <div class="card-body text-center" style="background-color: #ffedf5; border-radius: 15px;">
+                            <h2 style="color: #075f5e; font-size: 1.4rem; font-weight: bold;">
+                                {{ service.name }}
+                            </h2>
+                            <p class="text-muted" style="font-size: 0.95rem;">
+                                {{ service.description|slice(0, 80) ~ '...' }}
+                            </p>
+                            <a href="{{ path('service_details', { id: service.id }) }}" 
+                               class="btn btn-primary px-4 py-2" 
+                               style="background-color: #075f5e; border: none; font-size: 1rem; border-radius: 10px;">
+                                Voir plus
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center mt-4" style="color:#075f5e; font-size: 1.2rem; font-weight: 500;">
+            Aucun service disponible pour le moment.
+        </p>
+    {% endif %}
+</div>
+
+<style>
+    .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}

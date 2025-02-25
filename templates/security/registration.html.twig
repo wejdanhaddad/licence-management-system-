@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Registration{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center" style="color: #FF69B4; font-family: 'Arial', sans-serif; margin-bottom: 30px;">Register</h1>
+
+        {{ form_start(form, {'attr': {'class': 'form-register'}}) }}
+
+        {# Display form errors at the top #}
+        {% if form.vars.errors|length > 0 %}
+            <div class="alert alert-danger mb-4">
+                <ul>
+                    {% for error in form.vars.errors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {# Form fields with added spacing and focus effect */#}
+        <div class="form-group">
+            <label for="{{ form.user.vars.id }}" class="form-label">Username</label>
+            {{ form_widget(form.user, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Choose a username'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.vars.id }}" class="form-label">Email</label>
+            {{ form_widget(form.email, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Your email address'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.username.vars.id }}" class="form-label">Full Name</label>
+            {{ form_widget(form.username, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Your full name'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password.vars.id }}" class="form-label">Password</label>
+            {{ form_widget(form.password, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Your password'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.confirm_password.vars.id }}" class="form-label">Confirm Password</label>
+            {{ form_widget(form.confirm_password, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Confirm your password'}}) }}
+        </div>
+
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-pink rounded-pill w-100 shadow-sm">Register</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+    <style>
+        /* Form styles */
+        .form-register {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-control {
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #FF69B4;
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+        }
+
+        .btn-pink {
+            background-color: #FF69B4;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-pink:hover {
+            background-color: #FF1493;
+        }
+
+        .alert-danger {
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        .form-register .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}

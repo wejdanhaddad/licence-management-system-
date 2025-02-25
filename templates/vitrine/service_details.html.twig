@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Détails du Service {% endblock %}
+
+{% block body %}
+<div class="container my-5 p-4" 
+     style="background-color: #ffffff; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); max-width: 800px;">
+    
+    <h1 class="text-center mb-4" 
+        style="color: #075f5e; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 2rem;">
+        {{ service.name }} 
+    </h1>
+
+    <p class="text-center text-muted">
+        Découvrez nos services professionnels et personnalisés.
+    </p>
+
+    <hr style="border-top: 2px solid #075f5e;">
+
+    <div class="content">
+        <p style="font-size: 1.1rem; line-height: 1.6; text-align: justify;">
+            {{ service.description }}
+        </p>
+    </div>
+    <h3 class="text-center mt-4" style="color: #075f5e; font-size: 1.5rem;">Pourquoi choisir ce service ?</h3>
+    <ul style="font-size: 1.1rem; line-height: 1.6; list-style: none; padding: 0; text-align: center;">
+        <li>✅ Service de haute qualité</li>
+        <li>🔒 Sécurisé et fiable</li>
+        <li>📞 Support client dédié</li>
+    </ul>
+    <div class="text-center mt-4">
+        <a href="{{ path('contact') }}" class="btn btn-primary" 
+           style="background-color: #075f5e; border: none; padding: 12px 30px; font-size: 1.1rem; border-radius: 8px;">
+            Contactez-nous 📞
+        </a>
+    </div>
+</div>
+<style>
+    .btn-primary:hover {
+        background-color: #064d4c;
+        transition: 0.3s;
+    }
+</style>
+{% endblock %}

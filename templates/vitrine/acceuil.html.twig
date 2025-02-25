@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %} 
+
+{% block title %}Liste des Services | Twinkle IT{% endblock %}
+
+{% block body %}
+<div class="container my-5" style="background-color: #f8f9fa; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);">
+    <h1 class="mb-4 text-center" style="color: #034078; font-family: 'Poppins', sans-serif; font-weight: bold;">
+        Nos Services
+    </h1>
+
+    <!-- Formulaire de recherche -->
+    {{ form_start(form) }}
+    <div class="row g-3 align-items-end mb-4">
+        <div class="col-md-8">
+            {{ form_row(form.nom, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'Rechercher un service...',
+                    'style': 'border: 2px solid #034078; border-radius: 8px; padding: 10px;'
+                }
+            }) }}
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn w-100" 
+                    style="background-color: #034078; color: #ffffff; border-radius: 8px; font-weight: bold;">
+                Rechercher
+            </button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+    <!-- Liste des services -->
+    {% if services %}
+        <div class="row">
+            {% for service in services %}
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);">
+                        <div class="card-body text-center">
+                            <!-- Nom -->
+                            <h5 style="color: #034078; font-weight: bold; font-size: 1.2rem;">{{ service.name }}</h5>
+                            <p style="color: #5a5a5a; font-size: 1rem;">{{ service.description|slice(0, 100) ~ '...' }}</p>
+                            
+                            <!-- Bouton Voir plus -->
+                            <div class="d-flex justify-content-center">
+                                <a href="{{ path('service_details', {'id': service.id}) }}" 
+                                   class="btn btn-sm" 
+                                   style="background-color: #0275d8; color: #ffffff; border-radius: 5px; padding: 8px 15px;">
+                                    Voir plus
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center mt-4" style="background-color: #e9ecef; color: #034078; border-radius: 8px;">
+            Aucun service trouvé.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
