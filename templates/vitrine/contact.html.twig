@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-nous | Twinkle IT{% endblock %}
+
+{% block body %}
+<div class="container my-5 p-4" style="background: #f5f5f5; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); animation: fadeIn 1s ease-in-out;">
+    <h1 class="text-center mb-4" style="color: #2F93B9; font-weight: bold;">Contactez-nous</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center" style="border-radius: 10px;">
+            <i class="fas fa-check-circle"></i> {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="row align-items-center">
+        <!-- 📷 Image à gauche -->
+        <div class="col-md-6">
+            <p class="lead" style="font-size: 1.2rem; color: #555;">
+                Vous avez une question ? Besoin d’un devis ? Remplissez le formulaire, et nous reviendrons vers vous sous 24h !
+            </p>
+            <img src="{{ asset('uploads/contact.jpg') }}" alt="Contact Twinkle IT" class="img-fluid rounded shadow-lg"
+                 style="border-radius: 15px; animation: zoomIn 1s ease-in-out;">
+        </div>
+        
+        <!-- ✉️ Formulaire de contact à droite -->
+        <div class="col-md-6">
+            <div class="card p-4 shadow" style="border-radius: 15px; background: white;">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-user"></i> Votre Nom</label>
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre nom'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre adresse email'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-heading"></i> Sujet</label>
+                        {{ form_widget(form.subject, {'attr': {'class': 'form-control', 'placeholder': 'Objet du message'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-comment-dots"></i> Message</label>
+                        {{ form_widget(form.message, {'attr': {'class': 'form-control', 'rows': 5, 'placeholder': 'Votre message ici...'}}) }}
+                    </div>
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary btn-lg" style="background: #2F93B9; border-radius: 30px;">
+                            <i class="fas fa-paper-plane"></i> Envoyer
+                        </button>
+                    </div>
+                    {{ form_end(form, {'render_rest': false}) }}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 🌟 Animations CSS -->
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #2F93B9;
+        padding: 10px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #2F93B9;
+    }
+
+    .btn-primary:hover {
+        background: #217a98;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+{% endblock %}

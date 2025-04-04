@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}📦 Produits par Catégorie {% endblock %}
+
+{% block body %}
+<div class="container my-5 p-4" style="background-color: #ffffff; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+    
+    <!-- 🌟 Titre -->
+    <h1 class="mb-4 text-center" style="color: #2F93B9; font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 700;">
+        Trouvez un Produit sous Licence
+    </h1>
+
+    <div class="row align-items-center">
+        <!-- 🌟 Illustration -->
+        <div class="col-md-6 text-center">
+            <img src="{{ asset('uploads/service.png') }}" alt="Illustration de recherche de produits sous licence" class="img-fluid" style="max-height: 250px;">
+        </div>
+
+        <!-- 🌟 Formulaire de recherche -->
+        <div class="col-md-6">
+            <div class="card p-4 mb-4 shadow-sm" style="border-radius: 12px; background-color: #f8f9fa;">
+                {{ form_start(form) }}
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-8">
+                        {{ form_row(form.category, {
+                            'attr': {
+                                'class': 'form-control shadow-sm',
+                                'placeholder': 'Sélectionnez une catégorie...',
+                                'style': 'border: 2px solid #2F93B9; border-radius: 8px; padding: 12px;',
+                                'required': 'required'
+                            }
+                        }) }}
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary w-100 py-2"
+                                style="background-color: #2F93B9; color: #fff; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;"
+                                aria-label="Rechercher des produits">
+                            Rechercher
+                        </button>
+                    </div>
+                </div>
+                {{ form_end(form, {'render_rest': false}) }}
+            </div>
+        </div>
+    </div>
+
+    <!-- 🌟 Liste des Produits -->
+    {% if produits is not empty %}
+        <div class="table-responsive">
+            <table id="produits" class="table table-hover text-center align-middle">
+                <thead class="text-white" style="background-color:#2F93B9;">
+                    <tr>
+                        <th>Nom du Produit</th>
+                        <th>Catégorie</th>
+                        <th>Prix</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produit in produits %}
+                        <tr>
+                            <td style="font-weight: 500; color: #333;">{{ produit.name }}</td>
+                            <td>{{ produit.category.name|default('Non classé') }}</td>
+                            <td>{{ produit.prix|number_format(2, ',', ' ') }} €</td>
+                            <td>
+                                <a href="{{ path('produit_details', {'id': produit.id}) }}" 
+                                   class="btn btn-outline-primary btn-sm px-3 produit-btn"
+                                   aria-label="Voir les détails de {{ produit.name }}">
+                                    Voir Détails
+                                </a>
+                                
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center mt-4"
+             style="background-color: #e3f2fd; color: #2F93B9; border-radius: 10px; font-weight: 500;">
+            Aucun produit trouvé pour cette catégorie. 
+        </div>
+    {% endif %}
+</div>
+
+<!-- 🌟 Style Amélioré -->
+<style>
+    /* ✨ Effet sur les lignes du tableau */
+    table tbody tr {
+        transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    }
+    table tbody tr:hover {
+        background-color: rgba(47, 147, 185, 0.1);
+        transform: scale(1.02);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ✨ Animation sur les boutons */
+    .produit-btn {
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease-in-out;
+    }
+    .produit-btn:hover {
+        transform: scale(1.1);
+    }
+
+    /* ✨ Animation sur le formulaire */
+    .card {
+        transition: all 0.3s ease-in-out;
+    }
+    .card:hover {
+        transform: scale(1.02);
+    }
+</style>
+
+{% endblock %}

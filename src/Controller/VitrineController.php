@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Service;
+use App\Entity\Produit;
+use App\Entity\Contact;
 use App\Entity\License;
 use App\Entity\Category;
 use App\Form\CategoryType;
-use App\Form\ServiceType;
+use App\Form\ContactType;
+use App\Form\ProduitType;
 use App\Form\LicenseType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,86 +22,44 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class VitrineController extends AbstractController
 {
     /**
+     * 🏠 Accueil - Page principale
      * @Route("/", name="app_home")
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $services = $entityManager->getRepository(Service::class)->findBy([], ['name' => 'ASC']);
+        $produits = $entityManager->getRepository(Produit::class)->findBy([], ['name' => 'ASC']);
 
         return $this->render('vitrine/index.html.twig', [
-            'services' => $services,
+            'produits' => $produits,
         ]);
     }
-
     /**
-     * @Route("/services/{id}", name="service_details", requirements={"id"="\d+"})
+     * 📦 Détails d’un produit
+     * @Route("/produit/{id}", name="produit_details", requirements={"id"="\d+"})
      */
-    public function serviceDetails(int $id, EntityManagerInterface $entityManager): Response
+    public function produitDetails(int $id, EntityManagerInterface $entityManager): Response
     {
-        $service = $entityManager->getRepository(Service::class)->find($id);
+        $produit = $entityManager->getRepository(Produit::class)->find($id);
 
-        if (!$service) {
-            $this->addFlash('error', 'Service introuvable.');
+        if (!$produit) {
+            $this->addFlash('error', 'Produit introuvable.');
             return $this->redirectToRoute('app_home');
         }
-
         return $this->render('vitrine/service_details.html.twig', [
-            'service' => $service,
+            'produit' => $produit,
         ]);
     }
 
     /**
-     * @Route("/contact", name="contact")
+     * 🔍 Liste des produits par catégorie
+     * @Route("/produits", name="produit_list")
      */
-    public function contact(): Response
+    public function listProduits(Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('vitrine/contact.html.twig');
-    }
-
-    /**
-     * @Route("/admin/licenses", name="admin_licenses", methods={"GET", "POST"})
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function manageLicenses(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $license = new License();
-        $form = $this->createForm(LicenseType::class, $license);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($license);
-            $entityManager->flush();
-            $this->addFlash('success', 'Licence ajoutée avec succès.');
-
-            return $this->redirectToRoute('admin_licenses');
-        }
-
-        $licenses = $entityManager->getRepository(License::class)->findAll();
-        return $this->render('admin/licenses.html.twig', [
-            'licenses' => $licenses,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/api/licenses", name="api_licenses", methods={"GET"})
-     */
-    public function getLicenses(EntityManagerInterface $entityManager): Response
-    {
-        $licenses = $entityManager->getRepository(License::class)->findAll();
-        return $this->json($licenses);
-    }
-
-    /**
-     * @Route("/services", name="service_list")
-     */
-    public function listServices(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        // Création du formulaire de recherche par catégorie
         $form = $this->createFormBuilder()
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'titre',
+                'choice_label' => 'titre', // Modification de 'nom' à 'titre'
                 'placeholder' => 'Sélectionnez une catégorie',
                 'required' => false,
                 'attr' => ['class' => 'form-control']
@@ -112,34 +72,34 @@ class VitrineController extends AbstractController
 
         $form->handleRequest($request);
 
-        // Récupération des services avec ou sans filtre
-        $queryBuilder = $entityManager->getRepository(Service::class)->createQueryBuilder('s');
+        $queryBuilder = $entityManager->getRepository(Produit::class)->createQueryBuilder('p');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->get('category')->getData();
             if ($category) {
-                $queryBuilder->where('s.category = :category')
+                $queryBuilder->where('p.category = :category')
                     ->setParameter('category', $category);
             }
         }
 
-        $services = $queryBuilder->getQuery()->getResult();
-        $categories = $entityManager->getRepository(Category::class)->findAll();
+        $produits = $queryBuilder->getQuery()->getResult();
+        $categories = $entityManager->getRepository(Category::class)->findBy([], ['titre' => 'ASC']); // Modification de 'nom' à 'titre'
 
-        return $this->render('vitrine/listServices.html.twig', [
-            'services' => $services,
+        return $this->render('vitrine/listProduit.html.twig', [
+            'produits' => $produits,
             'categories' => $categories,
             'form' => $form->createView(),
         ]);
     }
 
     /**
+     * 📂 Liste des catégories de produits
      * @Route("/categories", name="category_list")
      */
     public function listCategories(EntityManagerInterface $entityManager): Response
     {
         try {
-            $categories = $entityManager->getRepository(Category::class)->findBy([], ['titre' => 'ASC']);
+            $categories = $entityManager->getRepository(Category::class)->findBy([], ['titre' => 'ASC']); // Modification de 'nom' à 'titre'
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur est survenue.');
             return $this->redirectToRoute('app_home');
@@ -151,20 +111,21 @@ class VitrineController extends AbstractController
     }
 
     /**
-     * @Route("/services/new", name="new_service")
+     * ➕ Ajouter un nouveau produit
+     * @Route("/produits/new", name="new_produit")
      */
-    public function newService(Request $request, EntityManagerInterface $entityManager): Response
+    public function newProduit(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $service = new Service();
-        $form = $this->createForm(ServiceType::class, $service);
+        $produit = new Produit();
+        $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($service);
+            $entityManager->persist($produit);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Service ajouté avec succès !');
-            return $this->redirectToRoute('service_list');
+            $this->addFlash('success', 'Produit ajouté avec succès !');
+            return $this->redirectToRoute('produit_list');
         }
 
         return $this->render('vitrine/newService.html.twig', [
@@ -173,6 +134,7 @@ class VitrineController extends AbstractController
     }
 
     /**
+     * ➕ Ajouter une nouvelle catégorie
      * @Route("/categories/new", name="new_category")
      */
     public function newCategory(Request $request, EntityManagerInterface $entityManager): Response
@@ -193,12 +155,36 @@ class VitrineController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    /**
- * @Route("/about", name="about_page")
- */
-public function about(): Response
-{
-    return $this->render('vitrine/about.html.twig');
-}
 
+    /**
+     * 📄 À propos
+     * @Route("/about", name="about_page")
+     */
+    public function about(): Response
+    {
+        return $this->render('vitrine/about.html.twig');
+    }
+
+    /**
+     * 📩 Contact
+     * @Route("/contact", name="contact")
+     */
+    public function contact(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($contact);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre message a été envoyé avec succès !');
+            return $this->redirectToRoute('contact');
+        }
+
+        return $this->render('vitrine/contact.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

@@ -1,44 +1,104 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<div class="container my-5 p-4" style="background-color: #fffafc; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <h1 class="text-center mb-4" style="color: #075f5e; font-family: 'Poppins', sans-serif; font-size: 2.2rem; font-weight: 600;">
-        Nos Services
-    </h1>
+{% block title %}Accueil | Système de Gestion des Produits{% endblock %}
 
-    {% if services|length > 0 %}
-        <div class="row g-4">
-            {% for service in services %}
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm" 
-                         style="border-radius: 15px; transition: transform 0.3s ease-in-out;">
-                        <div class="card-body text-center" style="background-color: #ffedf5; border-radius: 15px;">
-                            <h2 style="color: #075f5e; font-size: 1.4rem; font-weight: bold;">
-                                {{ service.name }}
-                            </h2>
-                            <p class="text-muted" style="font-size: 0.95rem;">
-                                {{ service.description|slice(0, 80) ~ '...' }}
-                            </p>
-                            <a href="{{ path('service_details', { id: service.id }) }}" 
-                               class="btn btn-primary px-4 py-2" 
-                               style="background-color: #075f5e; border: none; font-size: 1rem; border-radius: 10px;">
-                                Voir plus
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-center mt-4" style="color:#075f5e; font-size: 1.2rem; font-weight: 500;">
-            Aucun service disponible pour le moment.
-        </p>
-    {% endif %}
+{% block body %}
+<!-- 🌟 Bannière -->
+<div class="hero-section text-center py-5" style="background: linear-gradient(135deg, #4e73df, #2e59d9); color: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+    <h1 class="fw-bold display-4">Gérez vos Produits en Toute Simplicité</h1>
+    <p class="lead mb-4">Découvrez notre système intuitif pour gérer et sécuriser vos produits facilement et efficacement.</p>
+    <a href="{{ path('produit_list') }}" class="btn btn-light btn-lg shadow-lg">🔐 Voir les Produits</a>
 </div>
 
-<style>
-    .card:hover {
-        transform: translateY(-5px);
-    }
-</style>
+<!-- 🌟 Produits sous licence -->
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">Nos Produits en Vedette</h2>
+    <div class="row mt-4">
+        {% for produit in produits %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-lg border-0 rounded-3" style="transition: transform 0.3s;">
+                    <img src="{{ asset('uploads/' ~ produit.image) }}" class="card-img-top" alt="{{ produit.name }}" style="object-fit: cover; height: 200px;">
+                    <div class="card-body text-center p-4">
+                        <h4 class="text-primary fw-bold">{{ produit.name }}</h4>
+                        <p class="text-muted">{{ produit.description|slice(0, 80) ~ '...' }}</p>
+                        <a href="{{ path('produit_details', {'id': produit.id}) }}" class="btn btn-primary mt-2 shadow-sm">Voir plus</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- 🌟 Fonctionnalités du Système -->
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">Pourquoi Choisir Notre Système ?</h2>
+    <div class="row mt-4">
+        <div class="col-md-4 text-center">
+            <i class="fas fa-key fa-3x text-primary"></i>
+            <h4 class="mt-3">Génération Automatique</h4>
+            <p class="text-muted">Obtenez des clés de licence sécurisées instantanément.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="fas fa-shield-alt fa-3x text-primary"></i>
+            <h4 class="mt-3">Sécurisé & Fiable</h4>
+            <p class="text-muted">Des produits protégés contre le piratage grâce à un système de sécurité avancé.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="fas fa-user-cog fa-3x text-primary"></i>
+            <h4 class="mt-3">Gestion Simplifiée</h4>
+            <p class="text-muted">Un tableau de bord clair et intuitif pour gérer vos produits efficacement.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 🌟 Témoignages -->
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">Témoignages de nos Clients</h2>
+    <div class="row mt-4">
+        <div class="col-md-4 text-center">
+            <p>💬 "Un excellent moyen de sécuriser nos produits logiciels."</p>
+            <h5 class="fw-bold mt-3">– Marie L.</h5>
+        </div>
+        <div class="col-md-4 text-center">
+            <p>💬 "Un processus d'achat et d'activation ultra simple."</p>
+            <h5 class="fw-bold mt-3">– Jean P.</h5>
+        </div>
+        <div class="col-md-4 text-center">
+            <p>💬 "Une solution fiable pour les éditeurs de logiciels."</p>
+            <h5 class="fw-bold mt-3">– Claire D.</h5>
+        </div>
+    </div>
+</div>
+
+<!-- 🌟 Section FAQ -->
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">FAQ</h2>
+    <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                    Comment acheter une licence ?
+                </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Vous pouvez acheter une licence directement depuis la page d’un produit.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                    Quels sont les modes de paiement acceptés ?
+                </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Nous acceptons les paiements par carte bancaire, PayPal et virement bancaire.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

@@ -1,152 +1,201 @@
-<!DOCTYPE html>    
+<!DOCTYPE html>
 <html lang="fr">
 <head>
+{% if is_granted('ROLE_ADMIN') %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('admin_dashboard') }}">⚙️ Admin</a>
+    </li>
+{% endif %}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Découvrez nos services professionnels et personnalisés.">
     <title>{% block title %}Twinkle IT - Votre Partenaire Digital{% endblock %}</title>
-    
+
     <!-- Font Awesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-    <!-- Custom Styles -->
     <style>
-       
-        .navbar {
-            background: #ffffff; /* Blanc pur */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 12px 20px;
-        }
-
-        .navbar-brand img {
-            height: 55px; /* Taille optimisée */
-            margin-right: 10px;
-        }
-
-        .navbar-brand {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #003366; /* Bleu foncé */
+        /* 🌟 Header */
+        .header {
+            background: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .navbar-brand:hover {
-            color: #0056b3;
-        }
-
-     
-        .navbar-nav .nav-link {
-            font-size: 1.1rem;
-            color: #003366;
-            transition: all 0.3s ease;
-            padding: 10px 15px;
-            border-radius: 5px;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #0056b3;
-            background: rgba(0, 86, 179, 0.1);
-        }
-
-        .btn-primary {
-            background-color: #0056b3;
+        .header .btn-login {
+            background-color: #2F93B9;
+            color: white;
             border-radius: 25px;
-            padding: 10px 25px;
-            border: none;
+            padding: 8px 20px;
+            font-size: 1rem;
             font-weight: bold;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
         }
 
-        .btn-primary:hover {
+        .header .btn-login:hover {
             background-color: #003366;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-       
-        body {
-            background: #f5f5f5;
-            font-family: 'Poppins', sans-serif;
+        /* 🌟 Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.58);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
+        .navbar-nav .nav-item .nav-link {
             color: #003366;
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: rgb(132, 203, 253);
+        }
+
+        .navbar-nav .dropdown-menu {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        /* 🌟 Footer */
+        .footer {
+            background: linear-gradient(45deg, #2F93B9, #6EB05B);
+            color: white;
             text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .footer .social-icons a:hover {
+            color: #E3F2FD;
         }
     </style>
-
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+    <!-- 🌟 Header -->
+    <header class="header">
+        <a class="navbar-brand" href="{{ path('app_home') }}">
+            <img src="{{ asset('uploads/twinkle.jpg') }}" alt="Twinkle IT Logo" height="50">
+        </a>
+        {% if not app.user %}
+            <a href="{{ path('security_login') }}" class="btn btn-login">Connexion</a>
+        {% else %}
+            <a href="{{ path('security_logout') }}" class="btn btn-login">Déconnexion</a>
+        {% endif %}
+    </header>
 
- 
+    <!-- 🌟 Navbar -->
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_home') }}">
-                <img src="{{ asset('uploads/twinkle.jpg') }}" alt="Twinkle IT Logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('service_list') }}">Nos Services</a>
+                <!-- Accueil -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Accueil
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                            <li><a class="dropdown-item" href="{{ path('app_home') }}#notre-entreprise">bienvenu dans Notre Entreprise</a></li>
+                        
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('about_page') }}">À Propos</a> <!-- Section À Propos -->
+                <!-- À Propos -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            À Propos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                            <li><a class="dropdown-item" href="{{ path('about_page') }}#notre-entreprise">Notre Entreprise</a></li>
+                            <li><a class="dropdown-item" href="{{ path('about_page') }}#nos-valeurs">Nos Valeurs</a></li>
+                            <li><a class="dropdown-item" href="{{ path('about_page') }}#notre-equipe">Notre Équipe</a></li>
+                        </ul>
                     </li>
-                    {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('new_service') }}">Ajouter un service</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('new_category') }}">Ajouter une catégorie</a>
-                        </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_list') }}">Catégories</a>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_home') }}">Accueil</a>
-                    </li>
-
-                    {% if app.user %}
-                        <li class="nav-item">
-                            <a href="{{ path('security_logout') }}" class="btn btn-primary">Déconnexion</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a href="{{ path('security_login') }}" class="btn btn-outline-primary">Connexion</a>
-                        </li>
-                        <li class="nav-item">
-                            {% if app.request and app.request.attributes.get('_route') != 'security_registration' %}
-                                <a href="{{ path('security_registration') }}" class="btn btn-primary ms-2">Inscription</a>
+                    <!-- Services -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Nos Produits
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="{{ path('produit_list') }}">Tous les produit</a></li>
+                            {% if app.user %}
+                                <li><a class="dropdown-item" href="{{ path('new_produit') }}">Ajouter un Produit</a></li>
                             {% endif %}
-                        </li>
-                    {% endif %}
+                        </ul>
+                    </li>
+
+                    <!-- Catégories -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{ path('category_list') }}" id="categoriesDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Catégories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                            <li><a class="dropdown-item" href="{{ path('category_list') }}">Voir les catégories</a></li>
+                            {% if app.user %}
+                                <li><a class="dropdown-item" href="{{ path('new_category') }}">Ajouter une catégorie</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+
+                    
+
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- 🌟 Main Content -->
     <div class="container mt-4">
         {% block body %}{% endblock %}
     </div>
 
+    <!-- 🌟 Footer -->
+    <footer class="footer">
+        <p>&copy; {{ "now"|date("Y") }} Twinkle IT - Tous droits réservés</p>
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
     {% block javascripts %}
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Initialize Bootstrap Dropdowns Manually -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let dropdowns = document.querySelectorAll(".dropdown-toggle");
+                dropdowns.forEach(dropdown => {
+                    new bootstrap.Dropdown(dropdown);
+                });
+            });
+        </script>
     {% endblock %}
 </body>
 </html>

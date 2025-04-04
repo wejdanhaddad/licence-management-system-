@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
@@ -29,13 +30,13 @@ class Category
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Service::class, mappedBy="category", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="category", cascade={"persist", "remove"})
      */
-    private $services;
+    private $produits;
 
     public function __construct()
     {
-        $this->services = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,7 +52,6 @@ class Category
     public function setTitre(?string $titre): self
     {
         $this->titre = $titre;
-
         return $this;
     }
 
@@ -63,37 +63,33 @@ class Category
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
         return $this;
     }
 
     /**
-     * @return Collection|Service[]
+     * @return Collection|Produit[]
      */
-    public function getServices(): Collection
+    public function getProduits(): Collection
     {
-        return $this->services;
+        return $this->produits;
     }
 
-    public function addService(Service $service): self
+    public function addProduit(Produit $produit): self
     {
-        if (!$this->services->contains($service)) {
-            $this->services[] = $service;
-            $service->setCategory($this);
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setCategory($this);
         }
-
         return $this;
     }
 
-    public function removeService(Service $service): self
+    public function removeProduit(Produit $produit): self
     {
-        if ($this->services->removeElement($service)) {
-            // set the owning side to null (unless already changed)
-            if ($service->getCategory() === $this) {
-                $service->setCategory(null);
+        if ($this->produits->removeElement($produit)) {
+            if ($produit->getCategory() === $this) {
+                $produit->setCategory(null);
             }
         }
-
         return $this;
     }
 }

@@ -14,7 +14,7 @@ class PropertySearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, [
+            ->add('name', TextType::class, [
                 'required' => false,
                 'label' => 'Search for an article',
             ]);

@@ -7,15 +7,14 @@
     <h1 class="mb-4 text-center" style="color: #034078; font-family: 'Poppins', sans-serif; font-weight: bold;">
         Nos Services
     </h1>
-
     <!-- Formulaire de recherche -->
     {{ form_start(form) }}
     <div class="row g-3 align-items-end mb-4">
         <div class="col-md-8">
-            {{ form_row(form.nom, {
+            {{ form_row(form.name, {
                 'attr': {
                     'class': 'form-control',
-                    'placeholder': 'Rechercher un service...',
+                    'placeholder': 'Rechercher un produit...',
                     'style': 'border: 2px solid #034078; border-radius: 8px; padding: 10px;'
                 }
             }) }}
@@ -28,7 +27,6 @@
         </div>
     </div>
     {{ form_end(form) }}
-
     <!-- Liste des services -->
     {% if services %}
         <div class="row">

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">👨‍💼 Dashboard Admin</h1>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center">
+                <h3 class="text-success">{{ nbUsers }}</h3>
+                <p>Utilisateurs Inscrits</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center">
+                <h3 class="text-info">{{ nbLicenses }}</h3>
+                <p>Licences Actives</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center">
+                <h3 class="text-warning">{{ revenus|number_format(2, ',', ' ') }} €</h3>
+                <p>Revenus Totaux</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center">
+        <a href="{{ path('admin_users') }}" class="btn btn-outline-primary m-2">📋 Gérer Utilisateurs</a>
+        <a href="{{ path('admin_licenses') }}" class="btn btn-outline-info m-2">🔑 Gérer Licences</a>
+        <a href="{{ path('admin_paiements') }}" class="btn btn-outline-success m-2">💰 Voir Paiements</a>
+    </div>
+</div>
+{% endblock %}
