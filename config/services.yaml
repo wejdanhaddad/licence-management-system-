@@ -1,10 +1,11 @@
 parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads'
-
+    assets.base_path: '/public'
 services:
     _defaults:
         autowire: true      # Injecte automatiquement les dépendances
         autoconfigure: true # Configure les services automatiquement
+
 
     # Enregistrement des contrôleurs
     App\Controller\:

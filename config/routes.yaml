@@ -10,3 +10,6 @@ add_to_cart:
 cart:
     path: /cart
     controller: App\Controller\CartController::showCart
+produit:
+    resource: '../src/Controller/ProduitController.php'
+    type: annotation

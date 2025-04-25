@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center text-primary mb-5">Gestion des Produits</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered shadow-sm rounded-3">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Image</th>
+                        <th>Description</th>
+                        <th>Version</th>
+                        <th>Licence</th>
+                        <th>Date de création</th>
+                        <th>Mise à jour</th>
+                        <th>Statut</th>
+                        <th>Prix</th>
+                        <th>Modules</th>
+                        <th>Conditions</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Actions</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produit in produits %}
+                        <tr class="transition-shadow duration-300 hover:shadow-lg">
+                            <td>{{ produit.id }}</td>
+                            <td>{{ produit.name }}</td>
+                            <td><img src="{{ produit.image }}" alt="{{ produit.name }}" class="img-fluid rounded-3" style="max-width: 80px;"></td>
+                            <td>{{ produit.description|slice(0, 50) ~ '...' }}</td>
+                            <td>{{ produit.versionActuelle }}</td>
+                            <td>{{ produit.typeLicence }}</td>
+                            <td>{{ produit.dateCreation ? produit.dateCreation|date('Y-m-d') : '' }}</td>
+                            <td>{{ produit.dateDerniereMiseAJour ? produit.dateDerniereMiseAJour|date('Y-m-d') : '' }}</td>
+                            <td>
+                                <span class="badge {{ produit.statut ? 'bg-success' : 'bg-danger' }}">
+                                    {{ produit.statut ? 'Actif' : 'Inactif' }}
+                                </span>
+                            </td>
+                            <td>{{ produit.prix }} €</td>
+                            <td>{{ produit.modulesInclus ? produit.modulesInclus|json_encode : 'Aucun' }}</td>
+                            <td>{{ produit.conditionsUtilisation }}</td>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>
+                                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                                        <i class="bi bi-eye"></i> Voir
+                                    </a>
+                                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-outline-success btn-sm rounded-pill px-3">
+                                        <i class="bi bi-pencil"></i> Modifier
+                                    </a>
+                                    <a href="{{ path('app_produit_delete', {'id': produit.id}) }}" class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+                                        <i class="bi bi-trash"></i> Supprimer
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="13" class="text-center">Aucun produit trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Ajouter un nouveau produit, visible seulement pour l'admin -->
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="text-center mt-5">
+                <a href="{{ path('app_produit_new') }}" class="btn btn-info btn-lg rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Ajouter un nouveau produit
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Styles supplémentaires pour animations et transitions -->
+    <style>
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #e3f2fd;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s ease-in-out;
+        }
+        .badge.bg-success {
+            background-color: #28a745;
+        }
+        .badge.bg-danger {
+            background-color: #e74c3c;
+        }
+    </style>
+{% endblock %}

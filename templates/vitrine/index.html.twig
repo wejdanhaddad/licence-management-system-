@@ -5,11 +5,10 @@
 {% block body %}
 <!-- 🌟 Bannière -->
 <div class="hero-section text-center py-5" style="background: linear-gradient(135deg, #4e73df, #2e59d9); color: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-    <h1 class="fw-bold display-4">Gérez vos Produits en Toute Simplicité</h1>
+    <h1 class="fw-bold display-4">Bienvenu chez twinkle</h1>
     <p class="lead mb-4">Découvrez notre système intuitif pour gérer et sécuriser vos produits facilement et efficacement.</p>
-    <a href="{{ path('produit_list') }}" class="btn btn-light btn-lg shadow-lg">🔐 Voir les Produits</a>
+    <a href="{{ path('produit_list') }}" class="btn btn-light btn-lg shadow-lg">Voir les Produits</a>
 </div>
-
 <!-- 🌟 Produits sous licence -->
 <div class="container my-5">
     <h2 class="text-center text-primary mb-4">Nos Produits en Vedette</h2>
@@ -17,7 +16,7 @@
         {% for produit in produits %}
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-lg border-0 rounded-3" style="transition: transform 0.3s;">
-                    <img src="{{ asset('uploads/' ~ produit.image) }}" class="card-img-top" alt="{{ produit.name }}" style="object-fit: cover; height: 200px;">
+                    <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.name }}" style="object-fit: cover; height: 200px;">
                     <div class="card-body text-center p-4">
                         <h4 class="text-primary fw-bold">{{ produit.name }}</h4>
                         <p class="text-muted">{{ produit.description|slice(0, 80) ~ '...' }}</p>

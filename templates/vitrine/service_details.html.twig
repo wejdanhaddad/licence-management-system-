@@ -31,12 +31,14 @@
             {{ produit.description }}
         </p>
     </div>
+
     <!-- 🌟 Version Actuelle -->
     <div class="content">
         <p style="font-size: 1.2rem; line-height: 1.6; text-align: justify; color: #333;">
             Version actuelle: {{ produit.versionActuelle }}
         </p>
     </div>
+
     <!-- 🌟 Type de Licence -->
     <div class="content">
         <p style="font-size: 1.2rem; line-height: 1.6; text-align: justify; color: #333;">
@@ -50,6 +52,7 @@
             Date de Création: {{ produit.dateCreation|date('d/m/Y H:i') }}
         </p>
     </div>
+
     <!-- 🌟 Date de Dernière Mise à Jour -->
     <div class="content">
         <p style="font-size: 1.2rem; line-height: 1.6; text-align: justify; color: #333;">
@@ -104,6 +107,19 @@
              Nous contacter
         </a>
     </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="text-center mt-4">
+        <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-warning btn-lg shadow-sm" style="margin-right: 10px;">
+            Modifier
+        </a>
+        <a href="{{ path('app_produit_delete', {'id': produit.id}) }}" class="btn btn-danger btn-lg shadow-sm">
+            Supprimer
+        </a>
+    </div>
+{% endif %}
+
+
 </div>
 
 <!-- 🌟 Styles personnalisés -->

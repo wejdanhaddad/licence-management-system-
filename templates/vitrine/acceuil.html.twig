@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %} 
-
-{% block title %}Liste des Services | Twinkle IT{% endblock %}
-
+{% block title %}Liste des produits | Twinkle IT{% endblock %}
 {% block body %}
 <div class="container my-5" style="background-color: #f8f9fa; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);">
     <h1 class="mb-4 text-center" style="color: #034078; font-family: 'Poppins', sans-serif; font-weight: bold;">
-        Nos Services
+        Nos Produits
     </h1>
     <!-- Formulaire de recherche -->
     {{ form_start(form) }}
@@ -15,9 +13,7 @@
                 'attr': {
                     'class': 'form-control',
                     'placeholder': 'Rechercher un produit...',
-                    'style': 'border: 2px solid #034078; border-radius: 8px; padding: 10px;'
-                }
-            }) }}
+                    'style': 'border: 2px solid #034078; border-radius: 8px; padding: 10px;'  } }) }}
         </div>
         <div class="col-md-4">
             <button type="submit" class="btn w-100" 

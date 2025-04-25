@@ -3,46 +3,70 @@
 <head>
 {% if is_granted('ROLE_ADMIN') %}
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('admin_dashboard') }}">⚙️ Admin</a>
+        <a class="nav-link" href="{{ path('admin_dashboard') }}">Admin</a>
     </li>
 {% endif %}
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Découvrez nos services professionnels et personnalisés.">
     <title>{% block title %}Twinkle IT - Votre Partenaire Digital{% endblock %}</title>
-
     <!-- Font Awesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
     <style>
-        /* 🌟 Header */
-        .header {
-            background: #ffffff;
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* 🌟 Style général du Header */
+.header {
+    background: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .header .btn-login {
-            background-color: #2F93B9;
-            color: white;
-            border-radius: 25px;
-            padding: 8px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            text-decoration: none;
-        }
+/* 🌟 Conteneur des boutons */
+.header-buttons {
+    display: flex;
+    gap: 15px; /* Espacement entre les boutons */
+}
 
-        .header .btn-login:hover {
-            background-color: #003366;
-        }
+/* 🌟 Bouton Connexion et Déconnexion */
+.btn-login {
+    background-color: #2F93B9;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
 
+.btn-login:hover {
+    background-color: #003366;
+    transform: scale(1.05);
+}
+
+/* 🌟 Bouton Contact */
+.btn-contact {
+    background-color: #2AB572; /* Vert */
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    text-color:white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 3px 6px rgba(103, 101, 101, 0.15);
+}
+
+.btn-contact:hover {
+    background-color:rgb(66, 186, 138);
+    transform: scale(1.05);
+}
         /* 🌟 Navbar */
         .navbar {
             background: rgba(255, 255, 255, 0.58);
@@ -94,13 +118,16 @@
         <a class="navbar-brand" href="{{ path('app_home') }}">
             <img src="{{ asset('uploads/twinkle.jpg') }}" alt="Twinkle IT Logo" height="50">
         </a>
-        {% if not app.user %}
-            <a href="{{ path('security_login') }}" class="btn btn-login">Connexion</a>
-        {% else %}
-            <a href="{{ path('security_logout') }}" class="btn btn-login">Déconnexion</a>
-        {% endif %}
+        <!-- 🌟 Conteneur des boutons -->
+        <div class="header-buttons">
+            {% if not app.user %}
+                <a href="{{ path('security_login') }}" class="btn btn-login">Connexion</a>
+                <a href="{{ path('contact') }}" class="btn btn-contact">Nous contacter</a>
+            {% else %}
+                <a href="{{ path('security_logout') }}" class="btn btn-login">Déconnexion</a>
+            {% endif %}
+        </div>
     </header>
-
     <!-- 🌟 Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -108,7 +135,6 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                 <!-- Accueil -->
@@ -161,9 +187,6 @@
                             {% endif %}
                         </ul>
                     </li>
-
-                    
-
                 </ul>
             </div>
         </div>
@@ -196,6 +219,9 @@
                 });
             });
         </script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     {% endblock %}
 </body>
 </html>

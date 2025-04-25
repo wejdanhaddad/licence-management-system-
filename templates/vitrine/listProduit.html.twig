@@ -1,21 +1,16 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}📦 Produits par Catégorie {% endblock %}
-
+{% block title %}Produits par Catégorie {% endblock %}
 {% block body %}
 <div class="container my-5 p-4" style="background-color: #ffffff; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-    
     <!-- 🌟 Titre -->
     <h1 class="mb-4 text-center" style="color: #2F93B9; font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 700;">
         Trouvez un Produit sous Licence
     </h1>
-
     <div class="row align-items-center">
         <!-- 🌟 Illustration -->
         <div class="col-md-6 text-center">
             <img src="{{ asset('uploads/service.png') }}" alt="Illustration de recherche de produits sous licence" class="img-fluid" style="max-height: 250px;">
         </div>
-
         <!-- 🌟 Formulaire de recherche -->
         <div class="col-md-6">
             <div class="card p-4 mb-4 shadow-sm" style="border-radius: 12px; background-color: #f8f9fa;">
