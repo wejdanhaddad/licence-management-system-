@@ -96,7 +96,16 @@ class ProduitType extends AbstractType
                 'label' => 'Catégorie',
                 'placeholder' => 'Sélectionnez une catégorie',
                 'attr' => ['class' => 'form-control']
-            ]);
+                
+            ])
+            ->add('image', FileType::class, [
+                'label' => 'Image du produit',
+                'required' => false,
+                'mapped' => false, // Important pour les uploads
+                'attr' => [
+                    'accept' => 'image/*'
+                ]]);
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

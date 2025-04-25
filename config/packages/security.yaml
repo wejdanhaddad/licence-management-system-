@@ -1,8 +1,6 @@
 security:
     # User providers
     providers:
-        users_in_memory:
-            memory: null
         in_database:
             entity:
                 class: App\Entity\User
@@ -15,25 +13,22 @@ security:
             security: false
 
         main:
-            anonymous: lazy
-            provider: in_database
-
             form_login:
                 login_path: security_login
                 check_path: security_login
-
+                csrf_token_generator: security.csrf.token_manager
             logout:
                 path: security_logout
-                target: app_home
-                
+            anonymous: true
+            remember_me:
+                secret: '%env(APP_SECRET)%'
 
     # Access control
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
 
-    # Encoders (Use this section for password hashing in older Symfony versions)
+    # Encoders (for older Symfony versions)
     encoders:
         App\Entity\User:
             algorithm: bcrypt
-

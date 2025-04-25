@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .client-container {
+            width: 80%;
+            margin: 30px auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .client-container h1 {
+            text-align: center;
+            color: #2F80ED;
+        }
+
+        .client-container table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #f0f8ff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .client-container th {
+            background-color: #2F80ED;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .client-container td {
+            background-color: #e9f7ef;
+            padding: 12px;
+            color: #333;
+        }
+
+        .client-container a {
+            display: inline-block;
+            margin-top: 15px;
+            margin-right: 10px;
+            padding: 8px 16px;
+            background-color: #27AE60;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .client-container a:hover {
+            background-color: #219653;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="client-container">
+        <h1>Client</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ client.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ client.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Téléphone</th>
+                    <td>{{ client.telephone }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ client.email }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_client_index') }}">Retour à la liste</a>
+        <a href="{{ path('app_client_edit', {'id': client.id}) }}">Modifier</a>
+
+        {{ include('client/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
+    

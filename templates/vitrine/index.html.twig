@@ -4,23 +4,24 @@
 
 {% block body %}
 <!-- 🌟 Bannière -->
-<div class="hero-section text-center py-5" style="background: linear-gradient(135deg, #4e73df, #2e59d9); color: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-    <h1 class="fw-bold display-4">Bienvenu chez twinkle</h1>
-    <p class="lead mb-4">Découvrez notre système intuitif pour gérer et sécuriser vos produits facilement et efficacement.</p>
-    <a href="{{ path('produit_list') }}" class="btn btn-light btn-lg shadow-lg">Voir les Produits</a>
+<div class="hero-section text-center py-5" style="background: linear-gradient(45deg, #2F93B9, #6EB05B); color: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); animation: fadeIn 1.5s ease;">
+    <h1 class="fw-bold display-4 mb-3" style="font-size: 3rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">Bienvenu chez Twinkle</h1>
+    <p class="lead mb-4" style="font-size: 1.25rem;">Découvrez notre système intuitif pour gérer et sécuriser vos produits facilement et efficacement.</p>
+    <a href="{{ path('produit_list') }}" class="btn btn-light btn-lg shadow-lg px-4 py-2" style="font-size: 1.1rem; border-radius: 30px; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">Voir les Produits</a>
 </div>
+
 <!-- 🌟 Produits sous licence -->
 <div class="container my-5">
-    <h2 class="text-center text-primary mb-4">Nos Produits en Vedette</h2>
+    <h2 class="text-center text-primary mb-4" style="animation: fadeInUp 1s ease;">Nos Produits en Vedette</h2>
     <div class="row mt-4">
         {% for produit in produits %}
             <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-lg border-0 rounded-3" style="transition: transform 0.3s;">
-                    <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.name }}" style="object-fit: cover; height: 200px;">
+                <div class="card h-100 shadow-lg border-0 rounded-3" style="transition: transform 0.3s; border-radius: 15px; overflow: hidden; animation: fadeInUp 1s ease;">
+                    <img src="{{ asset('uploads/products/' ~ produit.image) }}" alt="{{ produit.name }}" class="card-img-top" style="object-fit: cover; height: 200px; transition: transform 0.3s;">
                     <div class="card-body text-center p-4">
                         <h4 class="text-primary fw-bold">{{ produit.name }}</h4>
                         <p class="text-muted">{{ produit.description|slice(0, 80) ~ '...' }}</p>
-                        <a href="{{ path('produit_details', {'id': produit.id}) }}" class="btn btn-primary mt-2 shadow-sm">Voir plus</a>
+                        <a href="{{ path('produit_details', {'id': produit.id}) }}" class="btn btn-primary mt-2 shadow-sm" style="transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#2F93B9'" onmouseout="this.style.backgroundColor='#007bff'">Voir plus</a>
                     </div>
                 </div>
             </div>
@@ -30,19 +31,19 @@
 
 <!-- 🌟 Fonctionnalités du Système -->
 <div class="container my-5">
-    <h2 class="text-center text-primary mb-4">Pourquoi Choisir Notre Système ?</h2>
+    <h2 class="text-center text-primary mb-4" style="animation: fadeInUp 1s ease;">Pourquoi Choisir Notre Système ?</h2>
     <div class="row mt-4">
-        <div class="col-md-4 text-center">
+        <div class="col-md-4 text-center" style="animation: fadeInUp 1s ease;">
             <i class="fas fa-key fa-3x text-primary"></i>
             <h4 class="mt-3">Génération Automatique</h4>
             <p class="text-muted">Obtenez des clés de licence sécurisées instantanément.</p>
         </div>
-        <div class="col-md-4 text-center">
+        <div class="col-md-4 text-center" style="animation: fadeInUp 1s ease;">
             <i class="fas fa-shield-alt fa-3x text-primary"></i>
             <h4 class="mt-3">Sécurisé & Fiable</h4>
             <p class="text-muted">Des produits protégés contre le piratage grâce à un système de sécurité avancé.</p>
         </div>
-        <div class="col-md-4 text-center">
+        <div class="col-md-4 text-center" style="animation: fadeInUp 1s ease;">
             <i class="fas fa-user-cog fa-3x text-primary"></i>
             <h4 class="mt-3">Gestion Simplifiée</h4>
             <p class="text-muted">Un tableau de bord clair et intuitif pour gérer vos produits efficacement.</p>
@@ -52,26 +53,32 @@
 
 <!-- 🌟 Témoignages -->
 <div class="container my-5">
-    <h2 class="text-center text-primary mb-4">Témoignages de nos Clients</h2>
+    <h2 class="text-center text-primary mb-4" style="animation: fadeInUp 1s ease;">Témoignages de nos Clients</h2>
     <div class="row mt-4">
-        <div class="col-md-4 text-center">
-            <p>💬 "Un excellent moyen de sécuriser nos produits logiciels."</p>
-            <h5 class="fw-bold mt-3">– Marie L.</h5>
+        <div class="col-md-4 text-center" style="animation: fadeInUp 1s ease;">
+            <div class="testimonial-card p-4 shadow-lg" style="border-radius: 10px; background: #f9f9f9; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <p>💬 "Un excellent moyen de sécuriser nos produits logiciels."</p>
+                <h5 class="fw-bold mt-3">– Marie L.</h5>
+            </div>
         </div>
-        <div class="col-md-4 text-center">
-            <p>💬 "Un processus d'achat et d'activation ultra simple."</p>
-            <h5 class="fw-bold mt-3">– Jean P.</h5>
+        <div class="col-md-4 text-center" style="animation: fadeInUp 1s ease;">
+            <div class="testimonial-card p-4 shadow-lg" style="border-radius: 10px; background: #f9f9f9; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <p>💬 "Un processus d'achat et d'activation ultra simple."</p>
+                <h5 class="fw-bold mt-3">– Jean P.</h5>
+            </div>
         </div>
-        <div class="col-md-4 text-center">
-            <p>💬 "Une solution fiable pour les éditeurs de logiciels."</p>
-            <h5 class="fw-bold mt-3">– Claire D.</h5>
+        <div class="col-md-4 text-center" style="animation: fadeInUp 1s ease;">
+            <div class="testimonial-card p-4 shadow-lg" style="border-radius: 10px; background: #f9f9f9; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <p>💬 "Une solution fiable pour les éditeurs de logiciels."</p>
+                <h5 class="fw-bold mt-3">– Claire D.</h5>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- 🌟 Section FAQ -->
 <div class="container my-5">
-    <h2 class="text-center text-primary mb-4">FAQ</h2>
+    <h2 class="text-center text-primary mb-4" style="animation: fadeInUp 1s ease;">FAQ</h2>
     <div class="accordion" id="faqAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
@@ -100,4 +107,17 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 {% endblock %}

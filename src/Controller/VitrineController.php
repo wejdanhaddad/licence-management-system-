@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Produit;
 use App\Entity\Contact;
 use App\Entity\License;
@@ -22,17 +21,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class VitrineController extends AbstractController
 {
     /**
-     * 🏠 Accueil - Page principale
-     * @Route("/", name="app_home")
-     */
-    public function index(EntityManagerInterface $entityManager): Response
-    {
-        $produits = $entityManager->getRepository(Produit::class)->findBy([], ['name' => 'ASC']);
+ * 🏠 Accueil - Page principale
+ * @Route("/", name="app_home")
+ */
 
-        return $this->render('vitrine/index.html.twig', [
-            'produits' => $produits,
-        ]);
+    public function index(EntityManagerInterface $entityManager): Response
+{
+    // 🔐 Rediriger les administrateurs vers leur dashboard
+    if ($this->isGranted('ROLE_ADMIN')) {
+        return $this->redirectToRoute('admin_dashboard'); // remplace par le nom de ta route admin si différent
     }
+    $produits = $entityManager->getRepository(Produit::class)->findBy([], ['name' => 'ASC']); // Assure-toi que c'est bien 'nom' dans ta base
+
+    return $this->render('vitrine/index.html.twig', [
+        'produits' => $produits,
+    ]);
+    }
+
     /**
      * 📦 Détails d’un produit
      * @Route("/produit/{id}", name="produit_details", requirements={"id"="\d+"})
@@ -111,27 +116,42 @@ class VitrineController extends AbstractController
     }
 
     /**
-     * ➕ Ajouter un nouveau produit
-     * @Route("/produits/new", name="new_produit")
-     */
-    public function newProduit(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $produit = new Produit();
-        $form = $this->createForm(ProduitType::class, $produit);
-        $form->handleRequest($request);
+ * ➕ Ajouter un nouveau produit
+ * @Route("/produits/new", name="new_produit")
+ */
+public function newProduit(Request $request, EntityManagerInterface $entityManager): Response
+{
+    $produit = new Produit();
+    $form = $this->createForm(ProduitType::class, $produit);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($produit);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Produit ajouté avec succès !');
-            return $this->redirectToRoute('produit_list');
+    if ($form->isSubmitted() && $form->isValid()) {
+        /** @var UploadedFile $imageFile */
+        $imageFile = $form->get('image')->getData();
+        
+        if ($imageFile) {
+            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+            
+            // Déplacez le fichier
+            $imageFile->move(
+                $this->getParameter('upload_directory'),
+                $newFilename
+            );
+            
+            $produit->setImage($newFilename);
         }
 
-        return $this->render('vitrine/newService.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        $entityManager->persist($produit);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Produit ajouté avec succès !');
+        return $this->redirectToRoute('produit_list');
     }
+
+    return $this->render('vitrine/newService.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
 
     /**
      * ➕ Ajouter une nouvelle catégorie
@@ -155,7 +175,6 @@ class VitrineController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * 📄 À propos
      * @Route("/about", name="about_page")
@@ -164,7 +183,6 @@ class VitrineController extends AbstractController
     {
         return $this->render('vitrine/about.html.twig');
     }
-
     /**
      * 📩 Contact
      * @Route("/contact", name="contact")

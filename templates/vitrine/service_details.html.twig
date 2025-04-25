@@ -20,7 +20,7 @@
     <!-- 🌟 Image du service -->
     {% if produit.image %}
         <div class="text-center mb-4">
-            <img src="{{ asset('uploads/' ~ produit.image) }}" alt="Illustration de {{ produit.name }}" 
+            <img src="{{ asset('uploads/products/' ~ produit.image)  }}" alt="Illustration de {{ produit.name }}" 
                  class="img-fluid rounded shadow-lg img-animated" style="max-width: 100%; height: auto;">
         </div>
     {% endif %}

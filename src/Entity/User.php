@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=App\Repository\UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="l’email que vous avez tapé est déjà utilisé !")
+ * @UniqueEntity(fields={"_username"}, message="L'email que vous avez tapé est déjà utilisé !")
  */
 class User implements UserInterface
 {
@@ -21,18 +22,23 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $User;
+    private $fullName;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\Email(message="Please enter a valid email address")
+     * @Assert\Email(message="Veuillez entrer une adresse email valide")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $username;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -40,36 +46,31 @@ class User implements UserInterface
      *     min=8,
      *     minMessage="Votre mot de passe doit comporter au minimum {{ limit }} caractères"
      * )
-     * @Assert\EqualTo(
-     *     propertyPath="confirm_password",
-     *     message="Vous n’avez pas saisi le même mot de passe"
-     * )
      */
     private $password;
 
     /**
      * @Assert\EqualTo(
      *     propertyPath="password",
-     *     message="Vous n’avez pas saisi le même mot de passe !"
+     *     message="Vous n'avez pas saisi le même mot de passe !"
      * )
      */
     private $confirm_password;
-
-    // Getters and setters...
+    
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUser(): ?string
+    public function getFullName(): ?string
     {
-        return $this->User;
+        return $this->fullName;
     }
 
-    public function setUser(string $User): self
+    public function setFullName(string $fullName): self
     {
-        $this->User = $User;
+        $this->fullName = $fullName;
         return $this;
     }
 
@@ -117,22 +118,55 @@ class User implements UserInterface
         return $this;
     }
 
-    // UserInterface methods
-
+    /**
+     * @see UserInterface
+     */
     public function getRoles(): array
     {
-        // By default, return ROLE_USER, you can add more roles based on your business logic
-        return ['ROLE_USER'];
+        $roles = $this->roles;
+        // Garantit que chaque utilisateur a au moins ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function eraseCredentials()
+    public function setRoles(array $roles): self
     {
-        // If you have sensitive data (like plain text passwords), erase it here
+        $this->roles = $roles;
+        return $this;
     }
 
+    public function addRole(string $role): self
+    {
+        if (!in_array($role, $this->roles)) {
+            $this->roles[] = $role;
+        }
+        return $this;
+    }
+
+    public function removeRole(string $role): self
+    {
+        if (($key = array_search($role, $this->roles)) !== false) {
+            unset($this->roles[$key]);
+        }
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
     public function getSalt()
     {
-        // bcrypt and argon2i do not need a salt, so you can return null
+        // Pas nécessaire avec les algorithmes modernes comme bcrypt ou argon2i
         return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // Efface les données temporaires/sensibles
+        $this->confirm_password = null;
     }
 }

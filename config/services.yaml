@@ -1,29 +1,26 @@
 parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads'
+    upload_directory: '%kernel.project_dir%/public/uploads/products'
     assets.base_path: '/public'
+
 services:
     _defaults:
         autowire: true      # Injecte automatiquement les dépendances
         autoconfigure: true # Configure les services automatiquement
 
-
-    # Enregistrement des contrôleurs
+    # Enregistrement automatique de tous les contrôleurs
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    # Enregistrement des repositories avec les tags nécessaires
+    # Enregistrement explicite des repositories (optionnel si autowire fonctionne bien)
     App\Repository\ProduitRepository:
-        autowire: true
-        autoconfigure: true
         tags: ['doctrine.repository_service']
 
     App\Repository\CategoryRepository:
-        autowire: true
-        autoconfigure: true
         tags: ['doctrine.repository_service']
 
     App\Repository\UserRepository:
-        autowire: true
-        autoconfigure: true
         tags: ['doctrine.repository_service']
+
+    App\Repository\ClientRepository: ~
