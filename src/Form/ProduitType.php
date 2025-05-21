@@ -78,18 +78,6 @@ class ProduitType extends AbstractType
                     new GreaterThanOrEqual(['value' => 0, 'message' => 'Le prix doit être supérieur ou égal à 0.'])
                 ]
             ])
-            ->add('modulesInclus', CollectionType::class, [
-                'label' => 'Modules Inclus',
-                'entry_type' => TextType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('conditionsUtilisation', TextareaType::class, [
-                'label' => 'Conditions d\'Utilisation',
-                'attr' => ['placeholder' => 'Règles et restrictions d’usage...', 'class' => 'form-control']
-            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'titre',

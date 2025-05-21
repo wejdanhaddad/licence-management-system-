@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
@@ -11,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
 class SecurityController extends AbstractController
 {
     /**

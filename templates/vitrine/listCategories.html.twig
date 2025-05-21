@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos Catégories de services {% endblock %}
+{% block title %}Nos Catégories de Produits{% endblock %}
 
 {% block body %}
-<div class="container my-5 p-4" style="background-color: #f8f9fa; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-    <h1 class="text-center mb-5" style="color: #114282; font-family: 'Poppins', sans-serif; font-size: 2.5rem;">
+<div class="container my-5 p-4" style="background-color: #ffffff; border-radius: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);">
+    <h1 class="text-center mb-5" style="color: #114282; font-family: 'Poppins', sans-serif; font-size: 2.8rem; font-weight: bold;">
         Nos Catégories
     </h1>
     {% if categories is not empty %}
@@ -31,26 +31,54 @@
     .category-card {
         border: none;
         border-radius: 15px;
-        background-color: #e3f2fd; /* Bleu clair */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        background: linear-gradient(145deg, #f0f4ff, #d9e6ff); /* Gradient moderne */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .category-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
     .card-title {
-        color: #3171d4; /* Bleu foncé */
+        color: #1a73e8; /* Bleu moderne */
         font-weight: bold;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
+        margin-bottom: 10px;
     }
 
     .card-text {
-        color: #4a90e2; /* Bleu moyen */
+        color: #5f6368; /* Gris moderne */
         font-size: 1rem;
         line-height: 1.6;
+    }
+
+    .btn-primary {
+        background-color: #1a73e8;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #155bb5;
+        transform: scale(1.05);
+    }
+
+    h1 {
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert-warning {
+        background-color: #fff4e5;
+        color: #856404;
+        border: 1px solid #ffeeba;
+        border-radius: 10px;
+        font-size: 1.1rem;
     }
 </style>
 

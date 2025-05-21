@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Découvrez nos services professionnels et personnalisés.">
     <title>{% block title %}Twinkle IT - Votre Partenaire Digital{% endblock %}</title>
-    <!-- Font Awesome for Icons -->
+
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
     <style>
-        /* 🌟 Style général du Header */
+        /* Styles personnalisés */
         .header {
             background: #ffffff;
             padding: 10px 20px;
@@ -20,13 +22,11 @@
             align-items: center;
         }
 
-        /* 🌟 Conteneur des boutons */
         .header-buttons {
             display: flex;
             gap: 15px;
         }
 
-        /* 🌟 Bouton Connexion et Déconnexion */
         .btn-login {
             background-color: #2F93B9;
             color: white;
@@ -44,7 +44,6 @@
             transform: scale(1.05);
         }
 
-        /* 🌟 Bouton Contact */
         .btn-contact {
             background-color: #2AB572;
             color: white;
@@ -62,7 +61,6 @@
             transform: scale(1.05);
         }
 
-        /* 🌟 Navbar */
         .navbar {
             background: rgba(255, 255, 255, 0.58);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -85,7 +83,6 @@
             background-color: #ffffff;
         }
 
-        /* 🌟 Footer */
         .footer {
             background: linear-gradient(45deg, #2F93B9, #6EB05B);
             color: white;
@@ -105,7 +102,6 @@
             color: #E3F2FD;
         }
 
-        /* 🌟 Style du menu Admin */
         .nav-item.dropdown .nav-link.admin-menu {
             color: #dc3545 !important;
             font-weight: bold;
@@ -120,55 +116,62 @@
             width: 20px;
             text-align: center;
         }
+
         .table-hover tbody tr:hover {
-    background-color: rgba(0, 128, 255, 0.1);
-}
-.card {
-    border-radius: 10px;
-    background-color: #f8f9fa;
-}
-.btn {
-    border-radius: 5px;
-}
+            background-color: rgba(0, 128, 255, 0.1);
+        }
+
+        .card {
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .btn {
+            border-radius: 5px;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        .table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background-color: #2a9d8f;
+            color: white;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(42, 157, 143, 0.1);
+        }
+
+        .btn-custom {
+            background-color: #0077b6;
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            text-decoration: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #005f86;
+        }
+
+        .btn-create {
+            background-color: #2a9d8f;
+            color: white;
+        }
     </style>
-    <!-- Bootstrap -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<style>
-    body {
-        background-color: #f5f7fa;
-        color: #333;
-    }
-    .table {
-        background: white;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    .table th {
-        background-color: #2a9d8f;
-        color: white;
-    }
-    .table-hover tbody tr:hover {
-        background-color: rgba(42, 157, 143, 0.1);
-    }
-    .btn-custom {
-        background-color: #0077b6;
-        color: white;
-        border-radius: 5px;
-        padding: 5px 10px;
-        text-decoration: none;
-    }
-    .btn-custom:hover {
-        background-color: #005f86;
-    }
-    .btn-create {
-        background-color: #2a9d8f;
-        color: white;
-    }
-</style>
 
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+
     <!-- 🌟 Header -->
     <header class="header">
         <a class="navbar-brand" href="{{ path('app_home') }}">
@@ -177,6 +180,7 @@
         <div class="header-buttons">
             {% if not app.user %}
                 <a href="{{ path('security_login') }}" class="btn btn-login">Connexion</a>
+                <a href="{{ path('client_login') }}" class="btn btn-login">Connexion client</a>
                 <a href="{{ path('contact') }}" class="btn btn-contact">Nous contacter</a>
             {% else %}
                 <a href="{{ path('security_logout') }}" class="btn btn-login">Déconnexion</a>
@@ -193,20 +197,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <!-- Accueil -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" 
+                        <a class="nav-link dropdown-toggle" href="{{ path('app_home') }}#notre-entreprise" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Accueil
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ path('app_home') }}#notre-entreprise">Bienvenue dans Notre Entreprise</a></li>
                         </ul>
                     </li>
-                    
-                    <!-- À Propos -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" 
+                        <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             À Propos
                         </a>
@@ -216,55 +217,37 @@
                             <li><a class="dropdown-item" href="{{ path('about_page') }}#notre-equipe">Notre Équipe</a></li>
                         </ul>
                     </li>
-                    
-                    <!-- Produits -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="produitsDropdown" role="button" 
+                        <a class="nav-link dropdown-toggle" href="{{ path('app_produit_index') }}" id="produitsDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Nos Produits
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="produitsDropdown">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ path('app_produit_index') }}">Tous les produits</a></li>
-                            {% if app.user %}
-                                <li><a class="dropdown-item" href="{{ path('app_produit_index') }}">Ajouter un produit</a></li>
-                            {% endif %}
                         </ul>
                     </li>
-
-                    <!-- Catégories -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ path('category_list') }}" id="categoriesDropdown" role="button" 
+                        <a class="nav-link dropdown-toggle" href="{{ path('category_list') }}" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Catégories
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ path('category_list') }}">Voir les catégories</a></li>
-                            {% if app.user %}
-                                <li><a class="dropdown-item" href="{{ path('app_category_index') }}">Ajouter une catégorie</a></li>
-                            {% endif %}
                         </ul>
-                        
                     </li>
-                     <!-- Client -->
-                      {% if app.user %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ path('app_client_index') }}" id="clientDropdown" role="button" 
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                           clients
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="clientsDropdown">
-                            <li><a class="dropdown-item" href="{{ path('app_client_index') }}">Voir les clients</a></li>
-                           
-                                <li><a class="dropdown-item" href="{{ path('app_client_index') }}">Ajouter un client</a></li>
-                            {% endif %}
-                        </ul>
-                        
-                    </li>
-                    
-                    
+                </ul>
             </div>
         </div>
     </nav>
+
+    <!-- 🌟 Flash messages -->
+    <div class="container mt-3">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+    </div>
 
     <!-- 🌟 Main Content -->
     <div class="container mt-4">
@@ -289,8 +272,7 @@
                 dropdowns.forEach(dropdown => {
                     new bootstrap.Dropdown(dropdown);
                 });
-            });<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+            });
         </script>
     {% endblock %}
 </body>

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil Client{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="card shadow p-4">
+            <h1 class="mb-4">Bienvenue dans votre profil</h1>
+
+            {% if client %}
+                <p><strong>Nom d'utilisateur :</strong> {{ client.username }}</p>
+                <p><strong>Email :</strong> {{ client.email }}</p>
+            {% else %}
+                <div class="alert alert-warning">
+                    Vous n'êtes pas connecté.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

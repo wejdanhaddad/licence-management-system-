@@ -1,34 +1,40 @@
 security:
-    # User providers
     providers:
-        in_database:
+        app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\User  # Your main user entity
                 property: email
-
-    # Firewalls
+        client_provider:
+            entity:
+                class: App\Entity\Client # Your client entity
+                property: email
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        main:
+        main: # For your admins (e.g., admins)
+            pattern: ^/
+            anonymous: true
             form_login:
                 login_path: security_login
                 check_path: security_login
-                csrf_token_generator: security.csrf.token_manager
+                provider: app_user_provider
+                default_target_path: /admin # Where to go after successful login
             logout:
                 path: security_logout
+        client: # For your clients
+            pattern: ^/client # Important:  Only URLs starting with /client use this firewall
             anonymous: true
-            remember_me:
-                secret: '%env(APP_SECRET)%'
-
-    # Access control
-    access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
-
-    # Encoders (for older Symfony versions)
+            form_login:
+                login_path: client_login
+                check_path: client_login_check
+                provider: client_provider # Use the client provider!
+                default_target_path: /profile # VERY IMPORTANT
+            logout:
+                path: client_logout
     encoders:
         App\Entity\User:
+            algorithm: bcrypt # Or your chosen encoder
+        App\Entity\Client:
             algorithm: bcrypt
+    access_control:
+        - { path: ^/profile, roles: ROLE_CLIENT  }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        # ... other access rules ...

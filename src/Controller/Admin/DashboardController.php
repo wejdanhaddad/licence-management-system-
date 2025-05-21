@@ -2,9 +2,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
+
 use App\Entity\Produit;
 use App\Entity\Category;
+use App\Entity\Client;
 use App\Entity\License;
 use App\Entity\Paiement;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -27,14 +28,14 @@ class DashboardController extends AbstractDashboardController
         $routeBuilder = $this->get(AdminUrlGenerator::class);
 
         return $this->redirect(
-            $routeBuilder->setController(UserCrudController::class)->generateUrl()
+            $routeBuilder->setController(ClientCrudController::class)->generateUrl()
         );
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('<img src="/uploads/twinkle.jpg" alt="Twinkle" height="30"> <span style="color:#2F93B9; font-weight:bold;">Twinkle Admin</span>')
+            ->setTitle('<img src="/uploads/twinkle.jpg" alt="Twinkle" height="80"> </span>')
             ->renderContentMaximized()
             ->generateRelativeUrls()
             ->setFaviconPath('/uploads/favicon.ico');
@@ -42,11 +43,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Tableau de Bord', 'fa fa-home');
+     
 
         yield MenuItem::section('Gestion');
 
-        yield MenuItem::linkToCrud(' Utilisateurs', 'fas fa-users', User::class);
+        yield MenuItem::linkToCrud(' Clients', 'fas fa-users', Client::class);
         yield MenuItem::linkToCrud(' Produits', 'fas fa-box-open', Produit::class);
         yield MenuItem::linkToCrud(' Catégories', 'fas fa-folder-open', Category::class);
         yield MenuItem::linkToCrud(' Licences', 'fas fa-key', License::class);

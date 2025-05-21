@@ -34,7 +34,7 @@ final class Version20250424135456 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE license DROP FOREIGN KEY FK_5768F419A76ED395');
+        // $this->addSql('ALTER TABLE license DROP FOREIGN KEY FK_5768F419A76ED395');
         $this->addSql('DROP INDEX IDX_5768F419A76ED395 ON license');
         $this->addSql('ALTER TABLE license DROP user_id');
     }

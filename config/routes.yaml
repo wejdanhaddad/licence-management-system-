@@ -4,12 +4,17 @@
 #homepage:
 #  path: /
 #  controller: App\Controller\IndexController::home
-add_to_cart:
-    path: /cart/add/{id}
-    controller: App\Controller\CartController::addToCart
-cart:
-    path: /cart
-    controller: App\Controller\CartController::showCart
 produit:
     resource: '../src/Controller/ProduitController.php'
     type: annotation
+
+client_login:
+    path: /client/login
+    controller: App\Controller\ClientSecurityController::login #  <-- CHECK THIS
+client_login_check:
+    path: /client/login_check
+client_logout:
+    path: /client/logout
+client_profile:
+    path: /client/profile
+    controller: App\Controller\ClientSecurityController::profile

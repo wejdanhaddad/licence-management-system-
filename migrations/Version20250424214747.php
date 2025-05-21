@@ -19,8 +19,8 @@ final class Version20250424214747 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE license DROP FOREIGN KEY FK_5768F419A76ED395');
-        $this->addSql('ALTER TABLE license ADD id INT DEFAULT NULL');
+        // $this->addSql('ALTER TABLE license DROP FOREIGN KEY FK_5768F419A76ED395');
+        // $this->addSql('ALTER TABLE license ADD id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE license ADD CONSTRAINT FK_license_client FOREIGN KEY (id) REFERENCES client (id)');
         $this->addSql('CREATE INDEX IDX_license_client ON license (id)');
     }

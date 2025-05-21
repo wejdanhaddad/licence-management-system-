@@ -24,3 +24,11 @@ services:
         tags: ['doctrine.repository_service']
 
     App\Repository\ClientRepository: ~
+
+    App\Repository\LicenseRepository:
+        tags: ['doctrine.repository_service']
+    App\Security\ClientAuthenticator:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            $router: '@router'
+            $passwordEncoder: '@security.password_encoder'

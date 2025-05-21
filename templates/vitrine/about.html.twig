@@ -7,26 +7,74 @@
     <style>
         /* 🌟 Effet d'ombre et d'animation sur images */
         .img-animated {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
         }
         .img-animated:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            transform: scale(1.1);
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
         }
 
         /* 🌟 Animation des cartes */
         .card-animated {
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
         }
         .card-animated:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 🌟 Section Hero */
+        .hero {
+            background: linear-gradient(135deg, #2F93B9, #6EB05B);
+            color: white;
+            padding: 5rem 0;
+            border-radius: 10px;
+        }
+
+        /* 🌟 Section Services */
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 🌟 Section Contact */
+        .contact-section {
+            background: linear-gradient(135deg, #6EB05B, #2F93B9);
+            color: white;
+            padding: 4rem 0;
+            border-radius: 10px;
+        }
+
+        /* 🌟 Polices et Espacements */
+        h1, h2, h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+        p {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+        }
+        .btn {
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .btn:hover {
+            background-color: #4a8c4f;
+            transform: scale(1.05);
         }
     </style>
 {% endblock %}
 
 {% block body %}
 <!-- 🌟 Hero Section -->
-<section class="hero text-center py-5" style="background: linear-gradient(45deg, #2F93B9, #6EB05B); color: white;" data-aos="fade-down">
+<section class="hero text-center" data-aos="fade-down">
     <div class="container">
         <h1 class="fw-bold">À Propos de Twinkle IT</h1>
         <p class="lead">Votre partenaire digital pour une transformation réussie.</p>
@@ -50,24 +98,30 @@
 </div>
 
 <!-- 🌟 Nos Services -->
-<section class="py-5" style="background-color: #f5f5f5;">
+<section class="py-5" style="background-color: #f9f9f9;">
     <div class="container text-center">
         <h2 class="text-dark fw-bold mb-4" data-aos="zoom-in">Nos Domaines d'Expertise</h2>
         <div class="row">
             <div class="col-md-4" data-aos="flip-left">
-                <img src="{{ asset('uploads/webdev.jpg') }}" alt="Développement Web" class="img-fluid shadow img-animated">
-                <h4 class="mt-3">Développement Web</h4>
-                <p>Création de sites vitrine, e-commerce et applications sur mesure.</p>
+                <div class="service-card">
+                    <img src="{{ asset('uploads/webdev.jpg') }}" alt="Développement Web" class="img-fluid shadow img-animated">
+                    <h4 class="mt-3">Développement Web</h4>
+                    <p>Création de sites vitrine, e-commerce et applications sur mesure.</p>
+                </div>
             </div>
             <div class="col-md-4" data-aos="flip-up">
-                <img src="{{ asset('uploads/design.jpg') }}" alt="Design UI/UX" class="img-fluid  shadow img-animated">
-                <h4 class="mt-3">Design UI/UX</h4>
-                <p>Des interfaces modernes et intuitives pour une meilleure expérience utilisateur.</p>
+                <div class="service-card">
+                    <img src="{{ asset('uploads/design.jpg') }}" alt="Design UI/UX" class="img-fluid shadow img-animated">
+                    <h4 class="mt-3">Design UI/UX</h4>
+                    <p>Des interfaces modernes et intuitives pour une meilleure expérience utilisateur.</p>
+                </div>
             </div>
             <div class="col-md-4" data-aos="flip-right">
-                <img src="{{ asset('uploads/seo.jpg') }}" alt="SEO & Marketing" class="img-fluid  shadow img-animated">
-                <h4 class="mt-3">SEO & Marketing</h4>
-                <p>Optimisation du référencement et stratégies digitales performantes.</p>
+                <div class="service-card">
+                    <img src="{{ asset('uploads/seo.jpg') }}" alt="SEO & Marketing" class="img-fluid shadow img-animated">
+                    <h4 class="mt-3">SEO & Marketing</h4>
+                    <p>Optimisation du référencement et stratégies digitales performantes.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -99,7 +153,7 @@
 </div>
 
 <!-- 🌟 Contact -->
-<section class="text-center py-5" style="background: linear-gradient(45deg, #6EB05B, #2F93B9); color: white;" data-aos="fade-up">
+<section class="contact-section text-center" data-aos="fade-up">
     <h2 class="fw-bold">Envie de Collaborer avec Nous ?</h2>
     <p class="lead">Contactez-nous dès aujourd'hui et réalisons ensemble votre projet digital.</p>
     <a href="{{ path('contact') }}" class="btn btn-light btn-lg mt-3">Nous Contacter</a>
@@ -111,7 +165,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({
-            duration: 1000,  
+            duration: 1200,  
             easing: 'ease-in-out',
             once: true 
         });

@@ -20,10 +20,6 @@
         {% endif %}
 
         {# Form fields with added spacing and focus effect */#}
-        <div class="form-group">
-            <label for="{{ form.user.vars.id }}" class="form-label">Username</label>
-            {{ form_widget(form.user, {'attr': {'class': 'form-control rounded-pill shadow-sm', 'placeholder': 'Choose a username'}}) }}
-        </div>
 
         <div class="form-group">
             <label for="{{ form.email.vars.id }}" class="form-label">Email</label>

@@ -20,7 +20,7 @@
     <!-- 🌟 Image du service -->
     {% if produit.image %}
         <div class="text-center mb-4">
-            <img src="{{ asset('uploads/products/' ~ produit.image)  }}" alt="Illustration de {{ produit.name }}" 
+            <img src="{{ asset('uploads/produits/' ~ produit.image)  }}" alt="Illustration de {{ produit.name }}" 
                  class="img-fluid rounded shadow-lg img-animated" style="max-width: 100%; height: auto;">
         </div>
     {% endif %}
@@ -71,25 +71,6 @@
     <div class="content">
         <p style="font-size: 1.2rem; line-height: 1.6; text-align: justify; color: #333;">
             Prix: {{ produit.prix | number_format(2, ',', ' ') }} €
-        </p>
-    </div>
-
-    <!-- 🌟 Modules Inclus -->
-    <div class="content">
-        <p style="font-size: 1.2rem; line-height: 1.6; text-align: justify; color: #333;">
-            Modules Inclus:
-        </p>
-        <ul>
-            {% for module in produit.modulesInclus %}
-                <li>{{ module }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <!-- 🌟 Conditions d'Utilisation -->
-    <div class="content">
-        <p style="font-size: 1.2rem; line-height: 1.6; text-align: justify; color: #333;">
-            Conditions d'Utilisation: {{ produit.conditionsUtilisation }}
         </p>
     </div>
 

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\License;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -19,17 +20,12 @@ class LicenseCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('cle', 'Clé de licence'),
+            IdField::new('id')->onlyOnIndex(), // Display only in the list view
+            TextField::new('licenseKey', 'Clé de licence'), // Updated to match the entity
             BooleanField::new('active', 'Active'),
             DateTimeField::new('dateCreation', 'Créée le'),
             DateTimeField::new('dateExpiration', 'Expire le'),
-            AssociationField::new('client', 'Client associé')
+            AssociationField::new('client', 'Client associé') // Links to the Client entity
         ];
-    
-        return $crud->setEntityLabelInPlural('Licences')
-                    ->setEntityLabelInSingular('Licence')
-                    ->setPageTitle('index', '🔐 Gestion des Licences')
-                    ->setPageTitle('edit', '✏️ Modifier la licence')
-                    ->setPageTitle('new', '➕ Nouvelle licence');
     }
 }

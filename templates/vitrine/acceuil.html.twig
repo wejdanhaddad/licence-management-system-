@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %} 
 {% block title %}Liste des produits | Twinkle IT{% endblock %}
 {% block body %}
-<div class="container my-5" style="background-color: #f8f9fa; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);">
-    <h1 class="mb-4 text-center" style="color: #034078; font-family: 'Poppins', sans-serif; font-weight: bold;">
+<div class="container my-5" style="background-color: #ffffff; border-radius: 16px; padding: 30px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);">
+    <h1 class="mb-4 text-center" style="color: #2c3e50; font-family: 'Poppins', sans-serif; font-weight: 600;">
         Nos Produits
     </h1>
     <!-- Formulaire de recherche -->
@@ -13,11 +13,11 @@
                 'attr': {
                     'class': 'form-control',
                     'placeholder': 'Rechercher un produit...',
-                    'style': 'border: 2px solid #034078; border-radius: 8px; padding: 10px;'  } }) }}
+                    'style': 'border: 1px solid #ced4da; border-radius: 12px; padding: 12px; font-size: 1rem;'  } }) }}
         </div>
         <div class="col-md-4">
             <button type="submit" class="btn w-100" 
-                    style="background-color: #034078; color: #ffffff; border-radius: 8px; font-weight: bold;">
+                    style="background-color: #3498db; color: #ffffff; border-radius: 12px; font-weight: 500; padding: 12px; font-size: 1rem;">
                 Rechercher
             </button>
         </div>
@@ -28,17 +28,16 @@
         <div class="row">
             {% for service in services %}
                 <div class="col-md-4 mb-4">
-                    <div class="card" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);">
+                    <div class="card" style="background-color: #f9f9f9; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
                         <div class="card-body text-center">
                             <!-- Nom -->
-                            <h5 style="color: #034078; font-weight: bold; font-size: 1.2rem;">{{ service.name }}</h5>
-                            <p style="color: #5a5a5a; font-size: 1rem;">{{ service.description|slice(0, 100) ~ '...' }}</p>
-                            
+                            <h5 style="color: #2c3e50; font-weight: 600; font-size: 1.25rem;">{{ service.name }}</h5>
+                            <p style="color: #7f8c8d; font-size: 1rem; line-height: 1.5;">{{ service.description|slice(0, 100) ~ '...' }}</p>
                             <!-- Bouton Voir plus -->
                             <div class="d-flex justify-content-center">
                                 <a href="{{ path('service_details', {'id': service.id}) }}" 
                                    class="btn btn-sm" 
-                                   style="background-color: #0275d8; color: #ffffff; border-radius: 5px; padding: 8px 15px;">
+                                   style="background-color: #1abc9c; color: #ffffff; border-radius: 8px; padding: 10px 20px; font-size: 0.9rem;">
                                     Voir plus
                                 </a>
                             </div>
@@ -48,7 +47,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <div class="alert alert-warning text-center mt-4" style="background-color: #e9ecef; color: #034078; border-radius: 8px;">
+        <div class="alert alert-warning text-center mt-4" style="background-color: #fdf2e9; color: #e67e22; border-radius: 12px; font-size: 1rem;">
             Aucun service trouvé.
         </div>
     {% endif %}

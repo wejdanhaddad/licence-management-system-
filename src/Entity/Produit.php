@@ -63,20 +63,16 @@ class Produit
     private $prix;
 
     /**
-     * @ORM\Column(type="json")
-     */
-    private $modulesInclus = [];
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $conditionsUtilisation;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="produits")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=License::class, inversedBy="produits")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $license;
 
     public function __construct()
     {
@@ -175,7 +171,6 @@ class Produit
         $this->statut = $statut;
         return $this;
     }
-
     public function getPrix(): ?float
     {
         return $this->prix;
@@ -187,28 +182,6 @@ class Produit
         return $this;
     }
 
-    public function getModulesInclus(): array
-    {
-        return $this->modulesInclus;
-    }
-
-    public function setModulesInclus(array $modulesInclus): self
-    {
-        $this->modulesInclus = $modulesInclus;
-        return $this;
-    }
-
-    public function getConditionsUtilisation(): ?string
-    {
-        return $this->conditionsUtilisation;
-    }
-
-    public function setConditionsUtilisation(string $conditionsUtilisation): self
-    {
-        $this->conditionsUtilisation = $conditionsUtilisation;
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -217,6 +190,17 @@ class Produit
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+        return $this;
+    }
+
+    public function getLicense(): ?License
+    {
+        return $this->license;
+    }
+
+    public function setLicense(?License $license): self
+    {
+        $this->license = $license;
         return $this;
     }
 }

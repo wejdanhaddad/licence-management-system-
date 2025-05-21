@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=App\Repository\UserRepository::class)
- * @UniqueEntity(fields={"_username"}, message="L'email que vous avez tapé est déjà utilisé !")
+ * @UniqueEntity(fields={"username"}, message="L'email que vous avez tapé est déjà utilisé !")
  */
 class User implements UserInterface
 {
@@ -18,28 +18,19 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $fullName;
-
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Email(message="Veuillez entrer une adresse email valide")
      */
     private $email;
-
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $username;
-
     /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
-
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
@@ -48,7 +39,6 @@ class User implements UserInterface
      * )
      */
     private $password;
-
     /**
      * @Assert\EqualTo(
      *     propertyPath="password",
@@ -56,46 +46,28 @@ class User implements UserInterface
      * )
      */
     private $confirm_password;
-    
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function getFullName(): ?string
-    {
-        return $this->fullName;
-    }
-
-    public function setFullName(string $fullName): self
-    {
-        $this->fullName = $fullName;
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
     }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
         return $this;
     }
-
     public function getUsername(): ?string
     {
         return $this->username;
     }
-
     public function setUsername(string $username): self
     {
         $this->username = $username;
         return $this;
     }
-
     public function getPassword(): ?string
     {
         return $this->password;
@@ -129,7 +101,6 @@ class User implements UserInterface
 
         return array_unique($roles);
     }
-
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -143,13 +114,17 @@ class User implements UserInterface
         }
         return $this;
     }
-
     public function removeRole(string $role): self
     {
         if (($key = array_search($role, $this->roles)) !== false) {
             unset($this->roles[$key]);
         }
         return $this;
+    }
+    public function __toString(): string
+    {
+        // Replace 'name' with a property that makes sense for your application
+        return $this->username ?? 'Unknown Client';
     }
 
     /**
