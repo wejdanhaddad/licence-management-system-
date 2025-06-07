@@ -3,18 +3,141 @@
 {% block title %}Profil Client{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="card shadow p-4">
-            <h1 class="mb-4">Bienvenue dans votre profil</h1>
-
-            {% if client %}
-                <p><strong>Nom d'utilisateur :</strong> {{ client.username }}</p>
-                <p><strong>Email :</strong> {{ client.email }}</p>
-            {% else %}
-                <div class="alert alert-warning">
-                    Vous n'êtes pas connecté.
-                </div>
-            {% endif %}
-        </div>
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 mb-4">
+        <h1 class="mb-4 text-center text-primary">Espace Client</h1>
+        {% if client %}
+            <p><strong>Nom d'utilisateur :</strong> {{ client.username }}</p>
+            <p><strong>Email :</strong> {{ client.email }}</p>
+        {% else %}
+            <div class="alert alert-warning">Vous n'êtes pas connecté.</div>
+        {% endif %}
     </div>
+
+    {% if client.licenses is not empty %}
+    <div class="card shadow-lg p-4 mb-4">
+        <h3 class="mb-3" style="color: #50b5d7;">Mes licences actives</h3>
+        <ul class="list-group">
+            {% for license in client.licenses %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ license.product.name }} ({{ license.licenseKey }})
+                    <span class="badge" style="background-color: {{ license.active ? '#74bb78' : '#7b7b7b' }};">
+                        {{ license.active ? 'Active' : 'Inactive' }}
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if app.user %}
+        {% if client.licenseRequests|length > 0 %}
+            <div class="card shadow-lg p-4 mb-4">
+                <h3 class="mb-3" style="color: #50b5d7;">Mes demandes de licence</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead style="background-color: #50b5d7; color: white;">
+                            <tr>
+                                <th>Produit</th>
+                                <th>Type</th>
+                                <th>Statut</th>
+                                <th>Licence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for request in client.licenseRequests %}
+                                <tr>
+                                    <td>{{ request.product.name }}</td>
+                                    <td>{{ request.requestType|capitalize }}</td>
+                                    <td>
+                                        <span class="badge" style="background-color: 
+                                            {{ request.status == 'approved' ? '#74bb78' : 
+                                               request.status == 'rejected' ? '#dc3545' : '#7b7b7b' }};">
+                                            {{ request.status|capitalize }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if request.licenseKey %}
+                                            <span class="text-success">{{ request.licenseKey }}</span>
+                                        {% else %}
+                                            <span class="text-muted">En attente</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="card shadow-lg p-4 mb-4">
+            <h3 class="mb-3" style="color: #50b5d7;">Envoyer une nouvelle demande de licence</h3>
+            {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.product) }}
+                    {{ form_widget(form.product, {'attr': {'class': 'form-control', 'placeholder': 'Choisissez un produit'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.requestType) }}
+                    {{ form_widget(form.requestType, {'attr': {'class': 'form-control', 'placeholder': 'Sélectionnez le type'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.message) }}
+                    {{ form_widget(form.message, {'attr': {'class': 'form-control', 'rows': '3', 'placeholder': 'Ajoutez un message...'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.startDate) }}
+                    {{ form_widget(form.startDate, {'attr': {'class': 'form-control datepicker'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.endDate) }}
+                    {{ form_widget(form.endDate, {'attr': {'class': 'form-control datepicker'}}) }}
+                </div>
+                <button class="btn text-white w-100" style="background-color: #74bb78;">Envoyer la demande</button>
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+</div>
+
+<style>
+body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.01);
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.badge {
+    font-size: 0.85rem;
+    padding: 0.5em 0.75em;
+    color: white;
+    border-radius: 0.5rem;
+}
+
+.text-success {
+    font-weight: 600;
+}
+
+.datepicker {
+    cursor: pointer;
+}
+</style>
 {% endblock %}

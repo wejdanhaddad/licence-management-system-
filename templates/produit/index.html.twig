@@ -6,11 +6,15 @@
 <div class="container my-5">
     <h1 class="text-center text-primary fw-bold mb-4 display-5">Catalogue de Produits</h1>
 
+    <!-- Barre de recherche -->
+    <div class="mb-4 text-center">
+        <input type="text" id="searchBox" class="form-control w-50 mx-auto" placeholder="Rechercher un produit...">
+    </div>
+
     <div class="table-responsive shadow-lg rounded-4 overflow-hidden">
-        <table class="table table-hover align-middle mb-0">
+        <table class="table table-hover align-middle mb-0" id="productTable">
             <thead class="table-dark text-uppercase">
                 <tr>
-                    <th>#</th>
                     <th>Nom</th>
                     <th>Image</th>
                     <th>Description</th>
@@ -20,20 +24,16 @@
                     <th>Mis à jour</th>
                     <th>Statut</th>
                     <th>Prix</th>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <th>Actions</th>
-                    {% endif %}
                 </tr>
             </thead>
             <tbody>
                 {% for produit in produits %}
                     <tr class="table-row transition">
-                        <td>{{ produit.id }}</td>
                         <td class="fw-semibold">{{ produit.name }}</td>
                         <td>
                             <img src="{{ asset('uploads/produits/' ~ produit.image) }}" 
                                  alt="{{ produit.name }}" 
-                                 class="img-thumbnail border-0 shadow-sm" 
+                                 class="img-thumbnail border-0 shadow-sm product-image" 
                                  style="max-width: 70px;">
                         </td>
                         <td class="text-muted">{{ produit.description|length > 50 ? produit.description|slice(0, 50) ~ '…' : produit.description }}</td>
@@ -47,63 +47,148 @@
                             </span>
                         </td>
                         <td class="fw-bold text-primary">{{ produit.prix }} €</td>
-                        {% if is_granted('ROLE_CLIENT') %}
-                            <td>
-                                <div class="d-flex flex-wrap justify-content-center gap-2">
-                                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-outline-primary btn-sm rounded-pill">
-                                        <i class="bi bi-eye"></i> Voir
-                                    </a>
-                                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-outline-success btn-sm rounded-pill">
-                                        <i class="bi bi-pencil"></i> Modifier
-                                    </a>
-                                    <a href="{{ path('app_produit_delete', {'id': produit.id}) }}" 
-                                       class="btn btn-outline-danger btn-sm rounded-pill"
-                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-                                        <i class="bi bi-trash"></i> Supprimer
-                                    </a>
-                                </div>
-                            </td>
-                        {% endif %}
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="11" class="text-center text-muted py-4">Aucun produit trouvé.</td>
+                        <td colspan="9" class="text-center text-muted py-4">Aucun produit trouvé.</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class="text-center mt-5">
-            <a href="{{ path('app_produit_new') }}" class="btn btn-info btn-lg rounded-pill shadow-sm">
-                <i class="bi bi-plus-circle me-1"></i> Ajouter un produit
-            </a>
-        </div>
-    {% endif %}
 </div>
 
 <style>
-    .transition {
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    h1 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+    }
+
+    .table-responsive {
+        background-color: white;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .table thead {
+        background-color: #50b5d7;
+        color: white;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .table tbody tr {
         transition: all 0.2s ease-in-out;
     }
 
-    .table-row:hover {
-        background-color: #f8f9fa;
+    .table tbody tr:hover {
+        background-color: rgba(80, 181, 215, 0.1);
         transform: scale(1.005);
+        cursor: pointer;
     }
 
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    .product-image {
+        max-width: 70px;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .product-image:hover {
+        transform: scale(1.2);
+    }
+
+    .badge {
+        font-size: 0.85rem;
+        padding: 0.4em 0.75em;
+        border-radius: 12px;
     }
 
     .badge.bg-success {
-        background-color: #198754 !important;
+        background-color: #74bb78 !important;
     }
 
     .badge.bg-danger {
         background-color: #dc3545 !important;
     }
+
+    .fw-bold.text-primary {
+        color: #50b5d7 !important;
+    }
+
+    #searchBox {
+        border-radius: 25px;
+        padding: 10px 20px;
+        border: 2px solid #50b5d7;
+        max-width: 400px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        transition: border 0.3s ease-in-out;
+    }
+
+    #searchBox:focus {
+        border-color: #74bb78;
+        outline: none;
+    }
+
+    /* 🌙 Mode sombre */
+    body.dark-mode {
+        background-color: #121212;
+        color: #f1f1f1;
+    }
+
+    body.dark-mode .table {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+    }
+
+    body.dark-mode .table thead {
+        background-color: #343a40;
+    }
+
+    body.dark-mode .table tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark-mode .badge.bg-success {
+        background-color: #4caf50 !important;
+    }
+
+    body.dark-mode .badge.bg-danger {
+        background-color: #e74c3c !important;
+    }
+
+    body.dark-mode #searchBox {
+        background-color: #2b2b2b;
+        color: #f1f1f1;
+        border-color: #50b5d7;
+    }
 </style>
+
+
+
+    <script>
+    // 🔍 Filtrage des produits
+    document.getElementById("searchBox").addEventListener("keyup", function() {
+        var filter = this.value.toLowerCase();
+        var rows = document.querySelectorAll("#productTable tbody tr");
+
+        rows.forEach(row => {
+            var productName = row.cells[0].textContent.toLowerCase();
+            row.style.display = productName.includes(filter) ? "" : "none";
+        });
+    });
+
+    // 🌙 Mode sombre avec "m"
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "m") {
+            document.body.classList.toggle("dark-mode");
+        }
+    });
+
+</script>
 {% endblock %}

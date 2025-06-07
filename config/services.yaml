@@ -5,30 +5,24 @@ parameters:
 
 services:
     _defaults:
-        autowire: true      # Injecte automatiquement les dépendances
-        autoconfigure: true # Configure les services automatiquement
+        autowire: true
+        autoconfigure: true
+        public: false
 
-    # Enregistrement automatique de tous les contrôleurs
+    # Enregistrement automatique des services et contrôleurs
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    # Enregistrement explicite des repositories (optionnel si autowire fonctionne bien)
-    App\Repository\ProduitRepository:
-        tags: ['doctrine.repository_service']
+    App\Service\:
+        resource: '../src/Service/'
+        public: true
 
-    App\Repository\CategoryRepository:
-        tags: ['doctrine.repository_service']
-
-    App\Repository\UserRepository:
-        tags: ['doctrine.repository_service']
-
-    App\Repository\ClientRepository: ~
-
-    App\Repository\LicenseRepository:
-        tags: ['doctrine.repository_service']
-    App\Security\ClientAuthenticator:
+    App\Service\LicenseApiService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
-            $router: '@router'
-            $passwordEncoder: '@security.password_encoder'
+            $client: '@http_client'
+
+    # Repositories (optionnel si Doctrine autowire est activé)
+    App\Repository\:
+        resource: '../src/Repository/'
+        tags: ['doctrine.repository_service']

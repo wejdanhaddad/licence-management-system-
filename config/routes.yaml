@@ -11,10 +11,8 @@ produit:
 client_login:
     path: /client/login
     controller: App\Controller\ClientSecurityController::login #  <-- CHECK THIS
-client_login_check:
-    path: /client/login_check
 client_logout:
     path: /client/logout
 client_profile:
     path: /client/profile
-    controller: App\Controller\ClientSecurityController::profile
+    controller: App\Controller\SecurityController::profile

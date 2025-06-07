@@ -1,0 +1,24 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+<h1 class="dashboard-title">Tableau de bord</h1>
+
+<div class="dashboard-cards">
+    <div class="card stat-card">
+        <h2>{{ nbUsers }}</h2>
+        <p>Utilisateurs</p>
+    </div>
+    <div class="card stat-card">
+        <h2>{{ nbClients }}</h2>
+        <p>Clients</p>
+    </div>
+    <div class="card stat-card">
+        <h2>{{ nbLicenses }}</h2>
+        <p>Licences générées</p>
+    </div>
+    <div class="card stat-card">
+        <h2>{{ nbRequests }}</h2>
+        <p>Demandes en attente</p>
+    </div>
+</div>
+{% endblock %}

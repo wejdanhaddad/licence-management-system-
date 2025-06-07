@@ -2,7 +2,7 @@
 namespace App\Form;
 
 use App\Entity\License;
-use App\Entity\Client;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,8 +26,8 @@ class LicenseType extends AbstractType
             ])
             ->add('client', EntityType::class, [
                 'label' => 'Client',
-                'class' => Client::class,
-                'choice_label' => 'username', // Adjust this to the property you want to display
+                'class' => User::class,
+                'choice_label' => 'username', 
             ])
             ->add('active', CheckboxType::class, [
                 'label' => 'Active',

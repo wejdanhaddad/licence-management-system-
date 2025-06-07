@@ -1,40 +1,25 @@
 security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
     providers:
         app_user_provider:
             entity:
-                class: App\Entity\User  # Your main user entity
+                class: App\Entity\User
                 property: email
-        client_provider:
-            entity:
-                class: App\Entity\Client # Your client entity
-                property: email
+
     firewalls:
-        main: # For your admins (e.g., admins)
+        main:
             pattern: ^/
             anonymous: true
+            provider: app_user_provider
             form_login:
                 login_path: security_login
                 check_path: security_login
-                provider: app_user_provider
-                default_target_path: /admin # Where to go after successful login
             logout:
                 path: security_logout
-        client: # For your clients
-            pattern: ^/client # Important:  Only URLs starting with /client use this firewall
-            anonymous: true
-            form_login:
-                login_path: client_login
-                check_path: client_login_check
-                provider: client_provider # Use the client provider!
-                default_target_path: /profile # VERY IMPORTANT
-            logout:
-                path: client_logout
-    encoders:
-        App\Entity\User:
-            algorithm: bcrypt # Or your chosen encoder
-        App\Entity\Client:
-            algorithm: bcrypt
+
     access_control:
-        - { path: ^/profile, roles: ROLE_CLIENT  }
+        - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # ... other access rules ...

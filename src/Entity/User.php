@@ -6,12 +6,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\Collection;
+
+
 /**
  * @ORM\Entity(repositoryClass=App\Repository\UserRepository::class)
+ * @ORM\Table(name="app_user")
  * @UniqueEntity(fields={"username"}, message="L'email que vous avez tapé est déjà utilisé !")
  */
 class User implements UserInterface
 {
+    public function __construct()
+{
+    $this->licenseRequests = new \Doctrine\Common\Collections\ArrayCollection();
+}
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -23,14 +32,17 @@ class User implements UserInterface
      * @Assert\Email(message="Veuillez entrer une adresse email valide")
      */
     private $email;
+
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $username;
+
     /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
@@ -46,14 +58,22 @@ class User implements UserInterface
      * )
      */
     private $confirm_password;
+    /**
+   * @ORM\Column(type="boolean", nullable=true)
+   */
+    private $isAdministrative;
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
     public function getEmail(): ?string
     {
         return $this->email;
     }
+
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -63,11 +83,26 @@ class User implements UserInterface
     {
         return $this->username;
     }
+
     public function setUsername(string $username): self
     {
         $this->username = $username;
         return $this;
     }
+    /**
+ * @ORM\OneToMany(targetEntity=License::class, mappedBy="client")
+ */
+private $licenses;
+
+public function getLicenses(): Collection {
+    return $this->licenses;
+}
+
+/**
+ * @ORM\OneToMany(targetEntity=LicenseRequest::class, mappedBy="client")
+ */
+private $licenseRequests;
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -78,26 +113,22 @@ class User implements UserInterface
         $this->password = $password;
         return $this;
     }
-
     public function getConfirmPassword(): ?string
     {
         return $this->confirm_password;
     }
-
     public function setConfirmPassword(string $confirm_password): self
     {
         $this->confirm_password = $confirm_password;
         return $this;
     }
-
     /**
      * @see UserInterface
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // Garantit que chaque utilisateur a au moins ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ADMIN';
 
         return array_unique($roles);
     }
@@ -106,7 +137,6 @@ class User implements UserInterface
         $this->roles = $roles;
         return $this;
     }
-
     public function addRole(string $role): self
     {
         if (!in_array($role, $this->roles)) {
@@ -114,6 +144,7 @@ class User implements UserInterface
         }
         return $this;
     }
+
     public function removeRole(string $role): self
     {
         if (($key = array_search($role, $this->roles)) !== false) {
@@ -123,16 +154,13 @@ class User implements UserInterface
     }
     public function __toString(): string
     {
-        // Replace 'name' with a property that makes sense for your application
         return $this->username ?? 'Unknown Client';
     }
-
     /**
      * @see UserInterface
      */
     public function getSalt()
     {
-        // Pas nécessaire avec les algorithmes modernes comme bcrypt ou argon2i
         return null;
     }
 
@@ -141,7 +169,23 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // Efface les données temporaires/sensibles
         $this->confirm_password = null;
     }
+
+    public function getIsAdministrative(): ?bool
+    {
+        return $this->isAdministrative;
+    }
+
+    public function setIsAdministrative(bool $isAdministrative): self
+    {
+        $this->isAdministrative = $isAdministrative;
+
+        return $this;
+    }
+    
+public function getLicenseRequests(): Collection
+{
+    return $this->licenseRequests;
+}
 }

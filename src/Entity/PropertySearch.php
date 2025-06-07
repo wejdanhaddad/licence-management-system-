@@ -5,8 +5,9 @@ class PropertySearch
 {
     /**
      * @Assert\Type("string")
+     * @var string|null
      */
-    private ?string $nom = null;
+    private $nom = null;
 
     public function getNom(): ?string
     {

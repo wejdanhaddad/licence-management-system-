@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Produit;
 use App\Entity\Contact;
+use App\Entity\Faq;
 use App\Entity\License;
 use App\Entity\Category;
 use App\Form\CategoryType;
@@ -10,6 +11,7 @@ use App\Form\ContactType;
 use App\Form\ProduitType;
 use App\Form\LicenseType;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Stmt\ElseIf_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,16 +30,39 @@ class VitrineController extends AbstractController
     public function index(EntityManagerInterface $entityManager): Response
 {
     // 🔐 Rediriger les administrateurs vers leur dashboard
-    if ($this->isGranted('ROLE_ADMIN')) {
-        return $this->redirectToRoute('admin_dashboard'); // remplace par le nom de ta route admin si différent
-    }
+    if ($this->getUser()) {
+        $user = $this->getUser();
+        // Redirection selon la propriété isadmin (ou isAdministrative)
+        if (method_exists($user, 'getIsAdministrative()') && $user->getIsAdministrative()) {
+            return $this->redirectToRoute('admin_dashboard'); // Mets ici la route de ton dashboard admin
+        } else {
+            return $this->redirectToRoute('client_profile'); // Mets ici la route du profil client
+        }}
     $produits = $entityManager->getRepository(Produit::class)->findBy([], ['name' => 'ASC']); // Assure-toi que c'est bien 'nom' dans ta base
 
-    return $this->render('vitrine/index.html.twig', [
-        'produits' => $produits,
-    ]);
-    }
+    $features = [
+        ['icon' => 'fas fa-key', 'title' => 'Clés Automatiques', 'description' => 'Création et distribution instantanée de licences.'],
+        ['icon' => 'fas fa-lock', 'title' => 'Sécurité Renforcée', 'description' => 'Protection contre le piratage avec vérification via API.'],
+        ['icon' => 'fas fa-user-cog', 'title' => 'Gestion Client', 'description' => 'Suivi des demandes et visualisation des licences.'],
+    ];
+    
+$testimonials = [
+    ['text' => '"Un outil efficace pour gérer nos licences en toute simplicité."', 'author' => 'A. B.'],
+    ['text' => '"Une interface claire, intuitive et fluide. Bravo !"', 'author' => 'M. T.'],
+    ['text' => '"Une solution moderne et bien pensée."', 'author' => 'C. K.'],
+];
+$faqs = $entityManager->getRepository(Faq::class)->findAll();
 
+return $this->render('vitrine/index.html.twig', [
+    'produits' => $produits,
+    'testimonials' => $testimonials, // ✅ Ensure this is passed
+    'features' => $features,
+    'faqs' => $faqs, 
+]);
+
+
+    
+}
     /**
      * 📦 Détails d’un produit
      * @Route("/produit/{id}", name="produit_details", requirements={"id"="\d+"})
@@ -86,17 +111,14 @@ class VitrineController extends AbstractController
                     ->setParameter('category', $category);
             }
         }
-
         $produits = $queryBuilder->getQuery()->getResult();
         $categories = $entityManager->getRepository(Category::class)->findBy([], ['titre' => 'ASC']); // Modification de 'nom' à 'titre'
-
         return $this->render('vitrine/listProduit.html.twig', [
             'produits' => $produits,
             'categories' => $categories,
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * 📂 Liste des catégories de produits
      * @Route("/categories", name="category_list")
@@ -196,11 +218,9 @@ public function newProduit(Request $request, EntityManagerInterface $entityManag
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($contact);
             $entityManager->flush();
-
             $this->addFlash('success', 'Votre message a été envoyé avec succès !');
             return $this->redirectToRoute('contact');
         }
-
         return $this->render('vitrine/contact.html.twig', [
             'form' => $form->createView(),
         ]);

@@ -26,23 +26,23 @@ class ProduitCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name', 'Nom du produit'),
             TextEditorField::new('description', 'Description'),
-            MoneyField::new('prix', 'Prix')->setCurrency('EUR'), // ou 'TND'
+            MoneyField::new('prix', 'Prix')->setCurrency('EUR'),
             ImageField::new('image', 'Image')
                 ->setBasePath('/uploads/produits')
                 ->setUploadDir('public/uploads/produits')
                 ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]')
                 ->setRequired(false),
             AssociationField::new('category', 'Catégorie'),
-            AssociationField::new('license', 'Licence associée'),
+            AssociationField::new('licenses', 'Licence associée')
+                ->setQueryBuilder(function($qb) { return $qb->andWhere('entity.active = true'); }),
             TextField::new('versionActuelle', 'Version actuelle'),
             TextField::new('typeLicence', 'Type de licence'),
             DateTimeField::new('dateCreation', 'Date de création')->setFormat('dd/MM/yyyy HH:mm'),
             DateTimeField::new('dateDerniereMiseAJour', 'Date de dernière mise à jour')->setFormat('dd/MM/yyyy HH:mm'),
-            BooleanField::new('statut', 'Statut'),
-            
+            BooleanField::new('statut', 'Statut')
+                ->renderAsSwitch(false)
+                ->formatValue(function($value) { return $value ? 'Actif' : 'Inactif'; }),
             DateTimeField::new('createdAt', 'Date de création')->hideOnForm(),
-            
         ];
     }
 }
-

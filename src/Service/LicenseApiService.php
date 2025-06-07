@@ -12,7 +12,7 @@ class LicenseApiService
     public function __construct(HttpClientInterface $client)  
     { 
         $this->client = $client;
-        $this->apiUrl = 'http://localhost:5000/api/licenses'; //  API .NET
+        $this->apiUrl = 'http://localhost:5000/api/license'; //  API .NET
     }
 
     public function checkLicense(string $licenseKey): array
@@ -41,4 +41,24 @@ class LicenseApiService
 
         return $response->toArray();
     }
+    public function deactivateLicense(string $licenseKey): string
+{
+    $response = $this->client->request('POST', $this->apiUrl . '/deactivate/' . $licenseKey);
+    return $response->getContent(false);
+}
+
+public function blockLicense(string $licenseKey): string
+{
+    $response = $this->client->request('POST', $this->apiUrl . '/block/' . $licenseKey);
+    return $response->getContent(false);
+}
+
+public function renewLicense(string $licenseKey, \DateTimeInterface $newDate): string
+{
+    $response = $this->client->request('POST', $this->apiUrl . '/renew/' . $licenseKey, [
+        'json' => $newDate->format('Y-m-d\TH:i:s')
+    ]);
+    return $response->getContent(false);
+}
+
 }
