@@ -2,243 +2,483 @@
 
 {% block title %}À Propos - Twinkle IT{% endblock %}
 
-{% block stylesheets %}
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        h1, h2, h4 {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #50b5d7, #74bb78);
-            color: white;
-            padding: 5rem 0;
-            border-radius: 10px;
-        }
-
-        .img-animated {
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .img-animated:hover {
-            transform: scale(1.08);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-animated {
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .card-animated:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .service-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-section {
-            background: linear-gradient(135deg, #74bb78, #50b5d7);
-            color: white;
-            padding: 4rem 0;
-            border-radius: 10px;
-        }
-
-        .btn {
-            border-radius: 50px;
-            padding: 0.75rem 2rem;
-            font-weight: 600;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .btn:hover {
-            background-color: #408fa0 !important;
-            color: #fff !important;
-            transform: scale(1.05);
-        }
-
-        .testimonial-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .testimonial-card:hover {
-            transform: scale(1.03);
-        }
-
-        .text-primary {
-            color: #50b5d7 !important;
-        }
-body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-body.dark-mode .hero,
-body.dark-mode .contact-section {
-    background: linear-gradient(135deg, #1a3b4c, #2e5b3f);
-    color: #ffffff;
-}
-
-body.dark-mode .service-card,
-body.dark-mode .testimonial-card,
-body.dark-mode .card-animated {
-    background-color: #1e1e1e;
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
-    color: #e0e0e0;
-}
-
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h4 {
-    color: #74bb78 !important;
-}
-
-body.dark-mode .btn {
-    background-color: #50b5d7 !important;
-    color: white !important;
-}
-
-body.dark-mode .btn:hover {
-    background-color: #3c92a3 !important;
-    transform: scale(1.05);
-}
-
-body.dark-mode .text-primary {
-    color: #74bb78 !important;
-}
-
-body.dark-mode section,
-body.dark-mode .container,
-body.dark-mode .card {
-    background-color: #181818;
-}
-
-    </style>
-{% endblock %}
-
-
 {% block body %}
-<!-- 🌟 Hero Section -->
-<section class="hero text-center" data-aos="fade-down">
-    <div class="container">
-        <h1 class="fw-bold">À Propos de Twinkle IT</h1>
-        <p class="lead">Votre partenaire digital pour une transformation réussie.</p>
-    </div>
-</section>
+<div class="about-container">
+    <!-- Animation d'arrière-plan sophistiquée -->
+    <div class="particles-js" id="particles-js"></div>  
+    <div class="about-card" data-aos="fade-up" data-aos-duration="800">
+        <!-- 🌟 Hero Section avec texte blanc -->
+        <section class="hero text-center" style="background: linear-gradient(135deg, #50b5d7, #74bb78); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); padding: 5rem 0; margin-bottom: 3rem; color: white;">
+            <div class="container">
+                <h1 class="fw-bold" data-aos="zoom-in" style="color: white;">À Propos de Twinkle IT</h1>
+                <p class="lead" data-aos="fade-up" style="color: white;">Votre partenaire digital pour une transformation réussie.</p>
+            </div>
+        </section>
 
-<!-- 🌟 Qui sommes-nous ? -->
-<div class="container my-5">
-    <div class="row align-items-center">
-        <div class="col-md-6" data-aos="fade-right">
-            <img src="{{ asset('uploads/team.jpg') }}" alt="Équipe Twinkle IT" class="img-fluid rounded shadow-lg img-animated">
+       
+        <!-- 🌟 Qui sommes-nous ? (avec image originale) -->
+        <div class="about-content">
+            <div class="about-image" data-aos="fade-right">
+                <img src="{{ asset('uploads/team.jpg') }}" alt="Équipe Twinkle IT" 
+                     class="img-fluid rounded shadow-lg hover-3d" style="border-radius: 12px;">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <i class="fas fa-rocket"></i>
+                        <h3>+15 Projets Réalisés</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-text" data-aos="fade-left">
+                <h2 class="section-title">Notre Mission</h2>
+                <p class="lead">Chez <strong>Twinkle IT</strong>, nous sommes passionnés par l'innovation numérique.</p>
+                
+                <div class="mission-points">
+                    <div class="point-item">
+                        <div class="point-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <p>Solutions sur mesure adaptées à vos besoins</p>
+                    </div>
+                    <div class="point-item">
+                        <div class="point-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <p>Équipe d'experts dédiés à votre succès</p>
+                    </div>
+                    <div class="point-item">
+                        <div class="point-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <p>Approche collaborative et transparente</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6" data-aos="fade-left">
-            <h2 class="text-primary fw-bold">Notre Mission</h2>
-            <p class="lead">
-                Chez <strong>Twinkle IT</strong>, nous sommes passionnés par l'innovation numérique. 
-                Nous accompagnons nos clients dans la création de solutions web modernes et performantes.
-            </p>
+
+        <!-- 🌟 Nos Services (avec images originales) -->
+        <div class="services-section" style="background-color: #f9f9f9; padding: 3rem 0; border-radius: 20px; margin: 3rem 0;">
+            <div class="container text-center">
+                <h2 class="section-title mb-5" data-aos="zoom-in">Nos Domaines d'Expertise</h2>
+                <div class="row">
+                    <div class="col-md-4" data-aos="flip-left">
+                        <div class="service-card">
+                            <img src="{{ asset('uploads/webdev.jpg') }}" alt="Développement Web" 
+                                 class="img-fluid shadow hover-3d" style="border-radius: 12px;">
+                            <h4 class="mt-3">Développement Web</h4>
+                            <p>Création de sites vitrine, e-commerce et applications sur mesure.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="flip-up">
+                        <div class="service-card">
+                            <img src="{{ asset('uploads/design.jpg') }}" alt="Design UI/UX" 
+                                 class="img-fluid shadow hover-3d" style="border-radius: 12px;">
+                            <h4 class="mt-3">Design UI/UX</h4>
+                            <p>Des interfaces modernes et intuitives pour une meilleure expérience utilisateur.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="flip-right">
+                        <div class="service-card">
+                            <img src="{{ asset('uploads/seo.jpg') }}" alt="SEO & Marketing" 
+                                 class="img-fluid shadow hover-3d" style="border-radius: 12px;">
+                            <h4 class="mt-3">SEO & Marketing</h4>
+                            <p>Optimisation du référencement et stratégies digitales performantes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- 🌟 Témoignages -->
+        <div class="testimonials-section">
+            <h2 class="section-title text-center mb-5" data-aos="fade-down">Ce que disent nos clients</h2>
+            
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="testimonial-card">
+                        <p>💬 "Twinkle IT a transformé notre présence en ligne ! Un service impeccable et une équipe à l'écoute."</p>
+                        <h5 class="fw-bold mt-3">– Wejden Haddad</h5>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <p>💬 "Un accompagnement sur-mesure et une expertise hors du commun. Bravo à toute l'équipe !"</p>
+                        <h5 class="fw-bold mt-3">– Amira Mlouka</h5>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="testimonial-card">
+                        <p>💬 "Un travail de qualité qui nous a permis de booster notre visibilité en un temps record."</p>
+                        <h5 class="fw-bold mt-3">– Sarah Lemoine</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🌟 Contact (section originale) -->
+        <section class="contact-section text-center" 
+                 style="background: linear-gradient(135deg, #74bb78, #50b5d7); color: white; padding: 4rem 0; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); margin-top: 3rem;"
+                 data-aos="fade-up">
+            <h2 class="fw-bold">Envie de Collaborer avec Nous ?</h2>
+            <p class="lead">Contactez-nous dès aujourd'hui et réalisons ensemble votre projet digital.</p>
+            <a href="{{ path('contact') }}" class="btn btn-light btn-lg mt-3 shadow magnetic">
+                <span class="btn-text">Nous Contacter</span>
+                <i class="fas fa-paper-plane btn-icon"></i>
+                <span class="btn-hover-effect"></span>
+            </a>
+        </section>
     </div>
 </div>
 
-<!-- 🌟 Nos Services -->
-<section class="py-5" style="background-color: #f9f9f9;">
-    <div class="container text-center">
-        <h2 class="text-dark fw-bold mb-4" data-aos="zoom-in">Nos Domaines d'Expertise</h2>
-        <div class="row">
-            <div class="col-md-4" data-aos="flip-left">
-                <div class="service-card">
-                    <img src="{{ asset('uploads/webdev.jpg') }}" alt="Développement Web" class="img-fluid shadow img-animated">
-                    <h4 class="mt-3">Développement Web</h4>
-                    <p>Création de sites vitrine, e-commerce et applications sur mesure.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="flip-up">
-                <div class="service-card">
-                    <img src="{{ asset('uploads/design.jpg') }}" alt="Design UI/UX" class="img-fluid shadow img-animated">
-                    <h4 class="mt-3">Design UI/UX</h4>
-                    <p>Des interfaces modernes et intuitives pour une meilleure expérience utilisateur.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="flip-right">
-                <div class="service-card">
-                    <img src="{{ asset('uploads/seo.jpg') }}" alt="SEO & Marketing" class="img-fluid shadow img-animated">
-                    <h4 class="mt-3">SEO & Marketing</h4>
-                    <p>Optimisation du référencement et stratégies digitales performantes.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 🌟 Témoignages -->
-<div class="container my-5">
-    <h2 class="text-center text-primary fw-bold" data-aos="zoom-in">Ce que disent nos clients</h2>
-    <div class="row mt-4">
-        <div class="col-md-4" data-aos="fade-up">
-            <div class="card shadow border-0 p-4 card-animated">
-                <p>💬 "Twinkle IT a transformé notre présence en ligne ! Un service impeccable et une équipe à l'écoute."</p>
-                <h5 class="fw-bold mt-3">– wejden Haddad</h5>
-            </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="card shadow border-0 p-4 card-animated">
-                <p>💬 "Un accompagnement sur-mesure et une expertise hors du commun. Bravo à toute l'équipe !"</p>
-                <h5 class="fw-bold mt-3">– amira mlouka </h5>
-            </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-            <div class="card shadow border-0 p-4 card-animated">
-                <p>💬 "Un travail de qualité qui nous a permis de booster notre visibilité en un temps record."</p>
-                <h5 class="fw-bold mt-3">– Sarah Lemoine</h5>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 🌟 Contact -->
-<section class="contact-section text-center" data-aos="fade-up">
-    <h2 class="fw-bold">Envie de Collaborer avec Nous ?</h2>
-    <p class="lead">Contactez-nous dès aujourd'hui et réalisons ensemble votre projet digital.</p>
-    <a href="{{ path('contact') }}" class="btn btn-light btn-lg mt-3">Nous Contacter</a>
-</section>
-
-{% endblock %}
-
-{% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1200,  
-            easing: 'ease-in-out',
-            once: true 
-        });
+<style>
+    :root {
+        --primary-color: rgb(67, 192, 238);
+        --primary-light: #4895ef;
+        --secondary-color: rgb(55, 135, 201);
+        --accent-color: rgb(37, 216, 247);
+        --dark-color: #1a1a2e;
+        --light-color: #f8f9ff;
+        --text-color: #2b2d42;
+        --text-light: #8d99ae;
+        --error-color: #e63946;
+        --success-color: #2a9d8f;
+        --transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    }
     
-    // 🌙 Mode sombre avec "m"
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "m") {
-            document.body.classList.toggle("dark-mode");
+    /* Animation de fond particules */
+    .particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        opacity: 0.3;
+    }
+    
+    .about-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: var(--light-color);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .about-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 1200px;
+        z-index: 2;
+        position: relative;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.8s forwards;
+    }
+    
+    @keyframes fadeInUp {
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    .section-title {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2rem;
+        color: var(--dark-color);
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 2px;
+    }
+    
+    .about-content {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+        margin-bottom: 4rem;
+    }
+    
+    .about-image {
+        flex: 1;
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        transform: perspective(1000px);
+    }
+    
+    .hover-3d {
+        transform: rotateY(0) rotateX(0);
+        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+    }
+    
+    .about-image:hover .hover-3d {
+        transform: rotateY(5deg) rotateX(5deg);
+    }
+    
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(67, 192, 238, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+    }
+    
+    .about-image:hover .image-overlay {
+        opacity: 1;
+    }
+    
+    .overlay-content {
+        text-align: center;
+        color: white;
+        transform: translateY(20px);
+        transition: var(--transition);
+    }
+    
+    .about-image:hover .overlay-content {
+        transform: translateY(0);
+    }
+    
+    .overlay-content i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .overlay-content h3 {
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+    
+    .about-text {
+        flex: 1;
+    }
+    
+    .mission-points {
+        margin-top: 2rem;
+    }
+    
+    .point-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+    
+    .point-icon {
+        margin-right: 1rem;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+    }
+    
+    .service-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        height: 100%;
+        margin-bottom: 1.5rem;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+    
+    .testimonial-card {
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        padding: 2rem;
+        transition: var(--transition);
+        height: 100%;
+    }
+    
+    .testimonial-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn {
+        border-radius: 50px;
+        padding: 0.8rem 2.5rem;
+        font-weight: 600;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        border: none;
+        z-index: 1;
+    }
+    
+    .btn-light {
+        background: white;
+        color: var(--dark);
+    }
+    
+    .btn-hover-effect {
+        position: absolute;
+        width: 0;
+        height: 0;
+        background-color: var(--secondary-color);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.4s, height 0.4s;
+        z-index: -1;
+    }
+    
+    .btn:hover .btn-hover-effect {
+        width: 400px;
+        height: 400px;
+    }
+    
+    .btn:hover {
+        color: white;
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 20px rgba(67, 150, 238, 0.3);
+    }
+    
+    .btn-text {
+        margin-right: 0.5rem;
+        transition: var(--transition);
+    }
+    
+    .btn-icon {
+        transition: var(--transition);
+    }
+    
+    .btn:hover .btn-icon {
+        transform: translateX(5px);
+    }
+    
+    /* Effet magnétique */
+    .magnetic {
+        transition: transform 0.2s ease;
+    }
+    
+    .magnetic:hover {
+        transform: scale(1.05);
+    }
+    
+    @media (max-width: 992px) {
+        .about-content {
+            flex-direction: column;
+        }
+        
+        .about-image {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .about-card {
+            padding: 1.5rem;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .about-container {
+            padding: 1rem;
+        }
+        
+        .hero {
+            padding: 3rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 1.8rem;
+        }
+    }
+</style>
+
+<!-- Bibliothèques pour les animations avancées -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialisation des particules
+    particlesJS('particles-js', {
+        "particles": {
+            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#2F93B9" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.3, "random": true },
+            "size": { "value": 3, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#2F93B9", "opacity": 0.2, "width": 1 },
+            "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": { "enable": true, "mode": "repulse" },
+                "onclick": { "enable": true, "mode": "push" }
+            }
         }
     });
-
+    
+    // Initialisation des animations AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-out-quad',
+        once: true
+    });
+    
+    // Effet magnétique sur le bouton
+    const magneticBtn = document.querySelector('.magnetic');
+    if (magneticBtn) {
+        magneticBtn.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const angleX = (x - centerX) / 20;
+            const angleY = (y - centerY) / 20;
+            
+            this.style.transform = `perspective(1000px) rotateX(${angleY}deg) rotateY(${-angleX}deg) scale(1.05)`;
+        });
+        
+        magneticBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    }
+    
+    // Animation des images au hover
+    document.querySelectorAll('.hover-3d').forEach(img => {
+        img.addEventListener('mouseenter', function() {
+            this.style.transform = 'rotateY(5deg) rotateX(5deg)';
+        });
+        
+        img.addEventListener('mouseleave', function() {
+            this.style.transform = 'rotateY(0) rotateX(0)';
+        });
+    });
+});
 </script>
 {% endblock %}

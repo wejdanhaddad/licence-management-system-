@@ -3,15 +3,15 @@
 {% block title %}Nos Catégories de Produits{% endblock %}
 
 {% block body %}
-<div class="container my-5 p-4" style="background-color: #ffffff; border-radius: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);">
-    <h1 class="text-center mb-5" style="color: #114282; font-family: 'Poppins', sans-serif; font-size: 2.8rem; font-weight: bold;">
+<div class="container my-5 p-4 categories-wrapper" style="background-color: #ffffff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);">
+    <h1 class="text-center mb-5 category-heading">
         Nos Catégories
     </h1>
     {% if categories is not empty %}
         <div class="row">
             {% for category in categories %}
-                <div class="col-md-4 mb-4">
-                    <div class="card category-card">
+                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
+                    <div class="card category-card shadow-sm h-100">
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ category.titre }}</h5>
                             <p class="card-text">{{ category.description }}</p>
@@ -28,49 +28,39 @@
 </div>
 
 <style>
+    .category-heading {
+        color: #114282;
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.8rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
     .category-card {
         border: none;
-        border-radius: 15px;
-        background: linear-gradient(145deg, #f0f4ff, #d9e6ff); /* Gradient moderne */
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 16px;
+        background: linear-gradient(145deg, #f0f4ff, #d9e6ff);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        position: relative;
+        overflow: hidden;
     }
 
     .category-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
     }
 
     .card-title {
-        color: #1a73e8; /* Bleu moderne */
-        font-weight: bold;
+        color: #1a73e8;
+        font-weight: 600;
         font-size: 1.6rem;
-        margin-bottom: 10px;
+        margin-bottom: 0.75rem;
     }
 
     .card-text {
-        color: #5f6368; /* Gris moderne */
+        color: #5f6368;
         font-size: 1rem;
         line-height: 1.6;
-    }
-
-    .btn-primary {
-        background-color: #1a73e8;
-        border: none;
-        border-radius: 20px;
-        padding: 10px 20px;
-        font-size: 0.9rem;
-        font-weight: bold;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background-color: #155bb5;
-        transform: scale(1.05);
-    }
-
-    h1 {
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .alert-warning {
@@ -80,6 +70,29 @@
         border-radius: 10px;
         font-size: 1.1rem;
     }
+
+    @media (max-width: 768px) {
+        .category-heading {
+            font-size: 2rem;
+        }
+
+        .category-card {
+            margin-bottom: 1rem;
+        }
+    }
 </style>
+
+<!-- Animations AOS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-quad',
+            once: true
+        });
+    });
+</script>
 
 {% endblock %}

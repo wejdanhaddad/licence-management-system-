@@ -3,104 +3,121 @@
 {% block title %}Produits par Catégorie{% endblock %}
 
 {% block body %}
-<div class="container my-5 p-4" style="background: linear-gradient(to bottom right, #f0f4f8, #ffffff); border-radius: 20px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); font-family: 'Nunito', sans-serif;">
-    <!-- 🌸 Titre principal -->
-    <h1 class="mb-5 text-center fw-bold" style="color: #6a8caf; font-size: 2.6rem;">Rechercher un Produit sous Licence</h1>
+<div class="container my-5">
+    <!-- En-tête avec titre et description -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold mb-3" style="color: #2c3e50;">Nos Produits Sous Licence</h1>
+        <p class="lead text-muted">Découvrez notre sélection de produits premium dans chaque catégorie</p>
+    </div>
 
-    <div class="row align-items-center mb-5">
-        <!-- 🌸 Image -->
-        <div class="col-md-6 text-center mb-4 mb-md-0">
-            <img src="{{ asset('uploads/service.png') }}" alt="Recherche" class="img-fluid rounded" style="max-height: 250px;">
-        </div>
-
-        <!-- 🌸 Formulaire -->
-        <div class="col-md-6">
-            <div class="card p-4 border-0 shadow-sm" style="border-radius: 16px; background-color: #ffffff;">
-                {{ form_start(form) }}
-                <div class="row g-3 align-items-end">
-                    <div class="col-md-8">
-                        {{ form_row(form.category, {
-                            'attr': {
-                                'class': 'form-control shadow-sm',
-                                'style': 'border-radius: 10px; border: 1px solid #aac4d7; padding: 12px;',
-                                'required': 'required'
-                            }
-                        }) }}
+    <!-- Section recherche -->
+    <div class="row justify-content-center g-4 mb-5">
+        <div class="col-lg-10">
+            <div class="card border-0 p-4 shadow-lg" style="border-radius: 18px; background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);">
+                <div class="row align-items-center">
+                    <!-- Image illustrative -->
+                    <div class="col-md-5 d-none d-md-block">
+                        <img src="{{ asset('uploads/service.png') }}" alt="Recherche de produits" class="img-fluid rounded-3" style="max-height: 220px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
                     </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn w-100 py-2"
-                                style="background-color: #6a8caf; color: white; font-weight: 600; border-radius: 10px;">
-                            Rechercher
-                        </button>
+                    
+                    <!-- Formulaire de recherche -->
+                    <div class="col-md-7">
+                        <h2 class="h4 mb-4" style="color: #3498db;">Rechercher par catégorie</h2>
+                        {{ form_start(form) }}
+                        <div class="input-group">
+                            {{ form_widget(form.category, {
+                                'attr': {
+                                    'class': 'form-control form-control-lg',
+                                    'style': 'border-radius: 12px 0 0 12px; border: 2px solid #dfe7f5; padding: 12px;'
+                                }
+                            }) }}
+                            <button type="submit" class="btn btn-primary btn-lg px-4" style="border-radius: 0 12px 12px 0; background-color: #3498db; border-color: #3498db;">
+                                <i class="bi bi-search me-2"></i> Trouver
+                            </button>
+                        </div>
+                        {{ form_end(form, {'render_rest': false}) }}
                     </div>
                 </div>
-                {{ form_end(form, {'render_rest': false}) }}
             </div>
         </div>
     </div>
 
-    <!-- 🌸 Résultats -->
+    <!-- Résultats -->
     {% if produits is not empty %}
-        <div class="table-responsive">
-            <table id="produits" class="table table-hover text-center align-middle">
-                <thead style="background-color: #aac4d7; color: white;">
-                    <tr>
-                        <th>Produit</th>
-                        <th>Catégorie</th>
-                        <th>Prix</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for produit in produits %}
-                        <tr style="transition: all 0.3s;">
-                            <td style="font-weight: 600;">{{ produit.name }}</td>
-                            <td>{{ produit.category.name|default('Non classé') }}</td>
-                            <td>{{ produit.prix|number_format(2, ',', ' ') }} DT</td>
-                            <td>
-                                <a href="{{ path('produit_details', {'id': produit.id}) }}"
-                                   class="btn btn-outline-primary btn-sm"
-                                   style="border-radius: 8px; border-color: #6a8caf; color: #6a8caf;">
-                                    Détails
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="mb-5">
+            <h2 class="h4 mb-4 fw-bold" style="color: #2c3e50;">Résultats ({{ produits|length }})</h2>
+            
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for produit in produits %}
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 16px; transition: all 0.3s ease;">
+                            <div class="card-img-top bg-light" style="height: 180px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-box-seam" style="font-size: 3rem; color: #bdc3c7;"></i>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h3 class="h5 mb-0 fw-bold" style="color: #2c3e50;">{{ produit.name }}</h3>
+                                    <span class="badge rounded-pill" style="background-color: #e3f2fd; color: #3498db;">{{ produit.category.name|default('Général') }}</span>
+                                </div>
+                                <p class="text-muted small mb-3">Produit sous licence premium</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 mb-0 fw-bold" style="color: #e74c3c;">{{ produit.prix|number_format(2, ',', ' ') }} DT</span>
+                                    <a href="{{ path('produit_details', {'id': produit.id}) }}" 
+                                       class="btn btn-sm btn-outline-primary" 
+                                       style="border-radius: 8px; border-width: 2px;">
+                                        Voir détails <i class="bi bi-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     {% else %}
-        <div class="alert alert-warning text-center mt-4" style="background-color: #fff3cd; color: #856404; border-radius: 10px;">
-            Aucun produit trouvé dans cette catégorie.
+        <div class="text-center py-5 my-5">
+            <div class="mb-4">
+                <i class="bi bi-search" style="font-size: 3rem; color: #bdc3c7;"></i>
+            </div>
+            <h3 class="h4 mb-3" style="color: #2c3e50;">Aucun produit trouvé</h3>
+            <p class="text-muted">Essayez avec une autre catégorie ou consultez notre catalogue complet</p>
+            <a href="#" class="btn btn-outline-primary mt-2">Voir tous les produits</a>
         </div>
     {% endif %}
 </div>
 
-<!-- 🌸 Style + Animations -->
+<!-- Styles personnalisés -->
 <style>
     body {
-        background-color: #f5f7fa;
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     }
-    table tbody tr:hover {
-        background-color: rgba(106, 140, 175, 0.08);
-        transform: scale(1.01);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-    }
-
-    .btn:hover {
-        transform: scale(1.05);
-        background-color: #5a7c99 !important;
-        color: white !important;
-        transition: all 0.3s ease;
-    }
-
+    
     .card:hover {
         transform: translateY(-5px);
-        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     }
-
-    h1, th {
-        font-family: 'Nunito', sans-serif;
+    
+    .btn-outline-primary {
+        border-color: #3498db;
+        color: #3498db;
+        transition: all 0.3s;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #3498db;
+        color: white;
+    }
+    
+    .badge {
+        font-weight: 500;
+        padding: 5px 10px;
+    }
+    
+    .input-group:focus-within {
+        box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+        border-radius: 12px;
+        transition: box-shadow 0.3s;
     }
 </style>
 {% endblock %}

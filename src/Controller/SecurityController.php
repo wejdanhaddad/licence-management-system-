@@ -104,9 +104,11 @@ class SecurityController extends AbstractController
                 $mailer->send($email);
 
                 $this->addFlash('success', 'Inscription réussie ! Un email de confirmation a été envoyé.');
+            
             } catch (TransportExceptionInterface $e) {
-                $this->addFlash('warning', 'Inscription réussie, mais l\'email de confirmation n\'a pas pu être envoyé.');
-            }
+    $this->addFlash('warning', 'Inscription réussie, mais l\'email de confirmation n\'a pas pu être envoyé : ' . $e->getMessage());
+}
+
 
             return $this->redirectToRoute('security_login');
         }

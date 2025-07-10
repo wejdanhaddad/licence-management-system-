@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Entity\LicenseRequest;
 use App\Form\LicenseRequestType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,11 +16,18 @@ class ClientLicenseRequestController extends AbstractController
     /**
      * @Route("/client/license-request", name="client_license_request")
      */
-
     public function requestLicense(Request $request, EntityManagerInterface $em): Response
     {
+        $user = $this->getUser(); // Utilisateur connecté
+        $client = $em->getRepository(Client::class)->findOneBy(['user' => $user]);
+
+        if (!$client) {
+            $this->addFlash('danger', 'Aucun client associé à cet utilisateur.');
+            return $this->redirectToRoute('app_home');
+        }
+
         $licenseRequest = new LicenseRequest();
-        $licenseRequest->setClient($this->getUser());
+        $licenseRequest->setClient($client);
 
         $form = $this->createForm(LicenseRequestType::class, $licenseRequest);
 

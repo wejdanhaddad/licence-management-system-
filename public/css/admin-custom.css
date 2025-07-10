@@ -1,0 +1,52 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+}
+
+.ea-navbar {
+    background-color: #1e3799;
+    color: white;
+}
+
+.ea-navbar .dropdown-menu {
+    background-color: #273c75;
+    color: white;
+}
+
+.sidebar {
+    background-color: #2f3640;
+}
+
+.sidebar a {
+    color: #dcdde1 !important;
+}
+
+.sidebar a:hover {
+    background-color: #353b48;
+    color: #fff !important;
+}
+
+.ea-content {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.btn {
+    border-radius: 6px;
+}
+
+.content-header h1 {
+    font-weight: bold;
+    color: #2f3640;
+}
+body {
+    font-family: 'Segoe UI', sans-serif !important;
+    background-color: #f4f6f9 !important;
+}
+
+.ea-navbar {
+    background-color: #1e3799 !important;
+    color: white !important;
+}

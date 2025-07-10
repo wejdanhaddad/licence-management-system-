@@ -3,84 +3,657 @@
 {% block title %}Contactez-nous | Twinkle IT{% endblock %}
 
 {% block body %}
-<div class="container my-5 p-4" style="background: #f5f5f5; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); animation: fadeIn 1s ease-in-out;">
-    <h1 class="text-center mb-4" style="color: #2F93B9; font-weight: bold;">Contactez-nous</h1>
-
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success text-center" style="border-radius: 10px;">
-            <i class="fas fa-check-circle"></i> {{ message }}
-        </div>
-    {% endfor %}
-
-    <div class="row align-items-center">
-        <!-- 📷 Image à gauche -->
-        <div class="col-md-6">
-            <p class="lead" style="font-size: 1.2rem; color: #555;">
-                Vous avez une question ? Besoin d’un devis ? Remplissez le formulaire, et nous reviendrons vers vous sous 24h !
+<div class="contact-container">
+    <!-- Animation d'arrière-plan sophistiquée -->
+    <div class="particles-js" id="particles-js"></div>
+    
+    <div class="contact-card" data-aos="fade-up" data-aos-duration="800">
+        <div class="contact-header">
+            <h1 class="contact-title" data-aos="fade-up" data-aos-delay="200">Contactez-nous</h1>
+            <p class="contact-subtitle" data-aos="fade-up" data-aos-delay="300">
+                <span class="typing-animation">Vous avez une question ? Besoin d'un devis ? Remplissez le formulaire, et nous reviendrons vers vous sous 24h !</span>
             </p>
-            <img src="{{ asset('uploads/contact.jpg') }}" alt="Contact Twinkle IT" class="img-fluid rounded shadow-lg"
-                 style="border-radius: 15px; animation: zoomIn 1s ease-in-out;">
         </div>
         
-        <!-- ✉️ Formulaire de contact à droite -->
-        <div class="col-md-6">
-            <div class="card p-4 shadow" style="border-radius: 15px; background: white;">
-                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                    <div class="mb-3">
-                        <label class="form-label"><i class="fas fa-user"></i> Votre Nom</label>
-                        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre nom'}}) }}
+        {% for message in app.flashes('success') %}
+            <div class="contact-alert success" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-check-circle me-2"></i> {{ message }}
+                <div class="progress-bar"></div>
+            </div>
+        {% endfor %}
+        
+        <div class="contact-content">
+            <div class="contact-image" data-aos="fade-right" data-aos-delay="400">
+                <img src="{{ asset('uploads/contact.jpg') }}" alt="Contact Twinkle IT" class="img-fluid hover-3d">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <h3>Prêt à collaborer ?</h3>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre adresse email'}}) }}
+                </div>
+            </div>
+            
+            <div class="contact-form-container" data-aos="fade-left" data-aos-delay="500">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'contact-form'}}) }}
+                    <div class="form-group floating-label">
+                        {{ form_widget(form.name, {'attr': {
+                            'class': 'form-input',
+                            'placeholder': ' ',
+                            'id': 'contact_name'
+                        }}) }}
+                        <label for="contact_name"><i class="fas fa-user"></i> Votre Nom</label>
+                        <div class="underline"></div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label"><i class="fas fa-heading"></i> Sujet</label>
-                        {{ form_widget(form.subject, {'attr': {'class': 'form-control', 'placeholder': 'Objet du message'}}) }}
+                    
+                    <div class="form-group floating-label">
+                        {{ form_widget(form.email, {'attr': {
+                            'class': 'form-input',
+                            'placeholder': ' ',
+                            'id': 'contact_email'
+                        }}) }}
+                        <label for="contact_email"><i class="fas fa-envelope"></i> Email</label>
+                        <div class="underline"></div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label"><i class="fas fa-comment-dots"></i> Message</label>
-                        {{ form_widget(form.message, {'attr': {'class': 'form-control', 'rows': 5, 'placeholder': 'Votre message ici...'}}) }}
+                    
+                    <div class="form-group floating-label">
+                        {{ form_widget(form.subject, {'attr': {
+                            'class': 'form-input',
+                            'placeholder': ' ',
+                            'id': 'contact_subject'
+                        }}) }}
+                        <label for="contact_subject"><i class="fas fa-heading"></i> Sujet</label>
+                        <div class="underline"></div>
                     </div>
-                    <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-primary btn-lg" style="background: #2F93B9; border-radius: 30px;">
-                            <i class="fas fa-paper-plane"></i> Envoyer
+                    
+                    <div class="form-group floating-label">
+                        {{ form_widget(form.message, {'attr': {
+                            'class': 'form-input',
+                            'rows': 5,
+                            'placeholder': ' ',
+                            'id': 'contact_message'
+                        }}) }}
+                        <label for="contact_message"><i class="fas fa-comment-dots"></i> Message</label>
+                        <div class="underline"></div>
+                    </div>
+                    
+                    <div class="form-submit" data-aos="zoom-in" data-aos-delay="600">
+                        <button type="submit" class="contact-btn magnetic">
+                            <span class="btn-text">Envoyer</span>
+                            <i class="fas fa-paper-plane btn-icon"></i>
+                            <span class="btn-hover-effect"></span>
                         </button>
                     </div>
-                    {{ form_end(form, {'render_rest': false}) }}
-
+                {{ form_end(form, {'render_rest': false}) }}
             </div>
+        </div>
+    </div>
+    
+    <!-- Élément de feedback visuel pendant l'envoi -->
+    <div class="form-feedback">
+        <div class="feedback-content">
+            <div class="loader">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+            </div>
+            <p>Envoi en cours...</p>
         </div>
     </div>
 </div>
 
-<!-- 🌟 Animations CSS -->
 <style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
+    :root {
+        --primary-color: rgb(67, 192, 238);
+        --primary-light: #4895ef;
+        --secondary-color: rgb(55, 135, 201);
+        --accent-color: rgb(37, 216, 247);
+        --dark-color: #1a1a2e;
+        --light-color: #f8f9ff;
+        --text-color: #2b2d42;
+        --text-light: #8d99ae;
+        --error-color: #e63946;
+        --success-color: #2a9d8f;
+        --transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
     }
-
-    @keyframes zoomIn {
-        from { transform: scale(0.8); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
+    
+    /* Animation de fond particules */
+    .particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        opacity: 0.3;
     }
-
-    .form-control {
-        border-radius: 10px;
-        border: 2px solid #2F93B9;
-        padding: 10px;
+    
+    .contact-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: var(--light-color);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
     }
-
-    .form-label {
-        font-weight: bold;
-        color: #2F93B9;
+    
+    .contact-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 1000px;
+        z-index: 2;
+        position: relative;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.8s forwards;
     }
-
-    .btn-primary:hover {
-        background: #217a98;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+    @keyframes fadeInUp {
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    .contact-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        overflow: hidden;
+    }
+    
+    .contact-logo {
+        height: 60px;
+        margin-bottom: 1.5rem;
+        transform: scale(0.8);
+        opacity: 0;
+        animation: logoAppear 0.6s 0.3s forwards;
+    }
+    
+    @keyframes logoAppear {
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    
+    .contact-title {
+        color: var(--dark-color);
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .contact-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background: var(--primary-color);
+        border-radius: 3px;
+    }
+    
+    .contact-subtitle {
+        color: var(--text-light);
+        font-size: 1rem;
+        max-width: 600px;
+        margin: 1rem auto 1rem;
+        line-height: 1.5;
+        min-height: 60px;
+    }
+    
+    .typing-animation {
+        display: inline-block;
+        overflow: hidden;
+        border-right: 2px solid var(--primary-color);
+        white-space: nowrap;
+        animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: var(--primary-color) }
+    }
+    
+    .contact-alert {
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        margin: 1.5rem auto;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 80%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .contact-alert.success {
+        color: var(--success-color);
+        background-color: rgba(42, 157, 143, 0.1);
+    }
+    
+    .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background-color: var(--success-color);
+        animation: progressBar 3s linear forwards;
+    }
+    
+    @keyframes progressBar {
+        from { width: 100% }
+        to { width: 0% }
+    }
+    
+    .contact-content {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+    
+    .contact-image {
+        flex: 1;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        transform: perspective(1000px);
+    }
+    
+    .contact-image img {
+        width: 100%;
+        transition: var(--transition);
+        display: block;
+    }
+    
+    .hover-3d {
+        transform: rotateY(0) rotateX(0);
+        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+    }
+    
+    .contact-image:hover .hover-3d {
+        transform: rotateY(5deg) rotateX(5deg);
+    }
+    
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(67, 192, 238, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+    }
+    
+    .contact-image:hover .image-overlay {
+        opacity: 1;
+    }
+    
+    .overlay-content {
+        text-align: center;
+        color: white;
+        transform: translateY(20px);
+        transition: var(--transition);
+    }
+    
+    .contact-image:hover .overlay-content {
+        transform: translateY(0);
+    }
+    
+    .overlay-content i {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .overlay-content h3 {
+        font-weight: 600;
+        font-size: 1.3rem;
+    }
+    
+    .contact-form-container {
+        flex: 1;
+    }
+    
+    .contact-form {
+        margin-top: 1rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+    
+    .floating-label {
+        position: relative;
+        padding-top: 1.5rem;
+    }
+    
+    .floating-label label {
+        position: absolute;
+        top: 2rem;
+        left: 1rem;
+        color: var(--text-light);
+        font-weight: 500;
+        font-size: 0.95rem;
+        pointer-events: none;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .floating-label .form-input:focus + label,
+    .floating-label .form-input:not(:placeholder-shown) + label {
+        top: 0;
+        left: 0;
+        font-size: 0.8rem;
+        color: var(--primary-color);
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        border-radius: 0;
+        font-size: 1rem;
+        transition: var(--transition);
+        color: var(--text-color);
+        background-color: transparent;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .form-input:focus {
+        outline: none;
+        border-color: transparent;
+    }
+    
+    .underline {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+    }
+    
+    .form-input:focus ~ .underline {
+        width: 100%;
+    }
+    
+    textarea.form-input {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    .form-submit {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    .contact-btn {
+        padding: 1rem 2rem;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .btn-hover-effect {
+        position: absolute;
+        width: 0;
+        height: 0;
+        background-color: var(--secondary-color);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.4s, height 0.4s;
+        z-index: -1;
+    }
+    
+    .contact-btn:hover .btn-hover-effect {
+        width: 400px;
+        height: 400px;
+    }
+    
+    .contact-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(67, 150, 238, 0.3);
+    }
+    
+    .btn-text {
+        margin-right: 0.5rem;
+        transition: var(--transition);
+    }
+    
+    .btn-icon {
+        transition: var(--transition);
+    }
+    
+    .contact-btn:hover .btn-icon {
+        transform: translateX(5px);
+    }
+    
+    /* Effet magnétique */
+    .magnetic {
+        transition: transform 0.2s ease;
+    }
+    
+    .magnetic:hover {
+        transform: scale(1.05);
+    }
+    
+    /* Feedback pendant l'envoi */
+    .form-feedback {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .feedback-content {
+        text-align: center;
+    }
+    
+    .loader {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .loader-circle {
+        width: 12px;
+        height: 12px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        animation: bounce 1.4s infinite ease-in-out both;
+    }
+    
+    .loader-circle:nth-child(1) {
+        animation-delay: -0.32s;
+    }
+    
+    .loader-circle:nth-child(2) {
+        animation-delay: -0.16s;
+    }
+    
+    @keyframes bounce {
+        0%, 80%, 100% { 
+            transform: scale(0);
+        }
+        40% { 
+            transform: scale(1);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .contact-content {
+            flex-direction: column;
+        }
+        
+        .contact-image {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        
+        .contact-form-container {
+            width: 100%;
+        }
+        
+        .typing-animation {
+            white-space: normal;
+            border-right: none;
+            animation: none;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .contact-container {
+            padding: 1rem;
+        }
+        
+        .contact-card {
+            padding: 1.5rem;
+        }
+        
+        .contact-title {
+            font-size: 1.5rem;
+        }
     }
 </style>
 
+<!-- Bibliothèques pour les animations avancées -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialisation des particules
+    particlesJS('particles-js', {
+        "particles": {
+            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#2F93B9" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.3, "random": true },
+            "size": { "value": 3, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#2F93B9", "opacity": 0.2, "width": 1 },
+            "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": { "enable": true, "mode": "repulse" },
+                "onclick": { "enable": true, "mode": "push" }
+            }
+        }
+    });
+    
+    // Initialisation des animations AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-out-quad',
+        once: true
+    });
+    
+    // Effet magnétique sur le bouton
+    const magneticBtn = document.querySelector('.magnetic');
+    if (magneticBtn) {
+        magneticBtn.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const angleX = (x - centerX) / 20;
+            const angleY = (y - centerY) / 20;
+            
+            this.style.transform = `perspective(1000px) rotateX(${angleY}deg) rotateY(${-angleX}deg) scale(1.05)`;
+        });
+        
+        magneticBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    }
+    
+    // Simulation de l'envoi du formulaire
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Afficher le feedback
+            const feedback = document.querySelector('.form-feedback');
+            feedback.style.opacity = '1';
+            feedback.style.pointerEvents = 'auto';
+            
+            // Simuler un envoi (à remplacer par votre vrai code d'envoi)
+            setTimeout(() => {
+                feedback.style.opacity = '0';
+                feedback.style.pointerEvents = 'none';
+                
+                // Afficher un message de succès (simulé)
+                const successEvent = new Event('successEvent');
+                document.dispatchEvent(successEvent);
+            }, 2000);
+        });
+    }
+    
+    // Gestion des labels flottants
+    const floatLabels = document.querySelectorAll('.floating-label .form-input');
+    floatLabels.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.querySelector('label').classList.add('active');
+        });
+        
+        input.addEventListener('blur', function() {
+            if (this.value === '') {
+                this.parentElement.querySelector('label').classList.remove('active');
+            }
+        });
+        
+        // Pré-remplissage au chargement
+        if (input.value !== '') {
+            input.parentElement.querySelector('label').classList.add('active');
+        }
+    });
+});
+</script>
 {% endblock %}

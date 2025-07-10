@@ -19,10 +19,11 @@
 
     <style>
         :root {
-            --primary-color: #4361ee;
+            
+            --primary-color:rgb(67, 192, 238);
             --primary-light: #4895ef;
-            --secondary-color: #3f37c9;
-            --accent-color:rgb(78, 137, 82);
+            --secondary-color:rgb(32, 120, 192);
+            --accent-color:rgb(37, 216, 247);
             --dark-color: #1a1a2e;
             --light-color: #f8f9ff;
             --text-color: #2b2d42;
@@ -433,7 +434,6 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-
     <!-- 🌟 Header -->
     <header class="header" id="mainHeader">
         <div class="header-container">
@@ -456,7 +456,6 @@
             </div>
         </div>
     </header>
-
     <!-- 🌟 Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="navbar-container">
@@ -467,22 +466,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item" data-aos="fade-down" data-aos-delay="100">
-                        <a class="nav-link active" href="{{ path('app_home') }}#notre-entreprise">
+                        <a class="nav-link active" href="{{ path('app_home') }}#notre-Mission">
                             <i class="fas fa-home me-1"></i> Accueil
                         </a>
                     </li>
                     <li class="nav-item dropdown" data-aos="fade-down" data-aos-delay="150">
-                        <a class="nav-link dropdown-toggle" href="{{ path('about_page') }}#notre-entreprise" id="aboutDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="{{ path('about_page') }}#notre-Mission" id="aboutDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-info-circle me-1"></i> À Propos
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
-                            <li><a class="dropdown-item" href="{{ path('about_page') }}#notre-entreprise">
-                                <i class="fas fa-building me-2"></i>Notre Entreprise</a></li>
-                            <li><a class="dropdown-item" href="{{ path('about_page') }}#nos-valeurs">
-                                <i class="fas fa-heart me-2"></i>Nos Valeurs</a></li>
-                            <li><a class="dropdown-item" href="{{ path('about_page') }}#notre-equipe">
-                                <i class="fas fa-users me-2"></i>Notre Équipe</a></li>
+                            <li><a class="dropdown-item" href="{{ path('about_page') }}#notre-Mission">
+                                <i class="fas fa-building me-2"></i>Notre Mission</a></li>
+                            <li><a class="dropdown-item" href="{{ path('about_page') }}#Nos Domaines d'Expertise">
+                                <i class="fas fa-heart me-2"></i>Nos Domaines d'Expertise</a></li>
+                            <li><a class="dropdown-item" href="{{ path('about_page') }}#Ce que disent nos clients">
+                                <i class="fas fa-users me-2"></i>Ce que disent nos clients</a></li>
                         </ul>
                     </li>
                     <li class="nav-item" data-aos="fade-down" data-aos-delay="200">
@@ -499,7 +498,6 @@
             </div>
         </div>
     </nav>
-
     <!-- 🌟 Flash messages -->
     <div class="main-container">
         {% for label, messages in app.flashes %}

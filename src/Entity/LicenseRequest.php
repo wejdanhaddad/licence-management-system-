@@ -17,29 +17,17 @@ class LicenseRequest
      * @ORM\Column(type="integer")
      */
     private $id;
-/**
- * @ORM\Column(type="string", length=255, nullable=true)
- */
-private $machineId;
 
-public function getMachineId(): ?string
-{
-    return $this->machineId;
-}
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $machineId;
 
-public function setMachineId(?string $machineId): self
-{
-    $this->machineId = $machineId;
-    return $this;
-}
-
-   /**
- * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="licenseRequests")
- * @ORM\JoinColumn(nullable=false)
- */
-
-private $client;
-
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="licenseRequests")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $client;
 
     /**
      * @ORM\ManyToOne(targetEntity=Produit::class)
@@ -90,20 +78,23 @@ private $client;
         $this->createdAt = new \DateTime();
     }
 
-    // Getters et Setters
-
     public function getId(): ?int { return $this->id; }
 
-    public function getClient(): ?User
-{
-    return $this->client;
-}
+    public function getMachineId(): ?string { return $this->machineId; }
 
-    public function setClient(?User $user): self
-{
-    $this->client = $user;
-    return $this;
-}
+    public function setMachineId(?string $machineId): self {
+        $this->machineId = $machineId;
+        return $this;
+    }
+
+    public function getClient(): ?User {
+        return $this->client;
+    }
+
+    public function setClient(?User $client): self {
+        $this->client = $client;
+        return $this;
+    }
 
     public function getProduct(): ?Produit { return $this->product; }
 

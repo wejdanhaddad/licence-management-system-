@@ -29,10 +29,11 @@ class Client
     private $phone;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+ * @ORM\OneToOne(targetEntity=User::class)
+ * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+ */
+private $user;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\License", mappedBy="client")
