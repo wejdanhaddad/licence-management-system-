@@ -1,329 +1,280 @@
-Twinkle-IT Licence Management Platform
+# 🚀 Twinkle-IT Licence Management Platform
 
-Vitrine Website • Client Dashboard • Admin Dashboard • Secure API Integration
+> **Vitrine Website • Client Dashboard • Admin Dashboard • Secure API Integration**
 
-Project Overview :
+A **full-stack licence management platform** designed to manage software licences in a **secure, structured, and automated** way.
+Developed as a **Final Year Project (PFE)**, this project follows **professional software engineering practices**, real-world business workflows, and modern security standards.
 
-The Twinkle-IT Licence Management Platform is a full-stack web application designed to manage software licences in a secure, structured, and automated way.
+---
+
+## 📌 Project Overview
+
+The **Twinkle-IT Licence Management Platform** covers the **entire licence lifecycle**, from public product presentation to licence generation, activation, and monitoring.
 
 The platform combines:
 
-A public vitrine website
+*  **Public Vitrine Website**
+*  **Client Space (User Dashboard)**
+*  **Administrator Dashboard**
+*  **Secure License Management API** (JWT & role-based access)
 
-A client space 
+###  Key Focus Areas
 
-An administrator dashboard
+* Clean & modular architecture
+* Secure authentication & authorization
+* API-driven design
+* Real-world business workflows
+* Scalability & maintainability
 
-Integration with a secure License Management API (JWT & role-based access)
+---
 
-It covers the entire licence lifecycle, from public presentation and client licence requests to administrative validation, licence generation, activation, and notification.
+## 🌐 Public Vitrine Website
 
-This project was developed as a Final Year Project (PFE) with a strong focus on:
+Accessible to all visitors, the vitrine website serves as the **presentation and onboarding layer**.
 
-Clean and modular architecture
+### Features
 
-Security best practices
+* Homepage presenting **Twinkle-IT** and its products
+* Overview of licence-based services
+* Description of licence benefits & use cases
+* Call-to-action buttons (**Register / Login**)
+* Contact and informational sections
 
-API-driven design
+**Objective**
+Provide a professional first impression and guide visitors toward platform adoption.
 
-Real-world business workflows
+---
 
-Scalability and maintainability
+##  Authentication & Authorization
 
-Public Vitrine Website :
+A robust security system ensures controlled access to platform features.
 
-The vitrine website is accessible to all visitors and serves as the presentation and onboarding layer.
- 
-Features :
+### Features
 
-Homepage presenting Twinkle-IT and its products
+* User registration & login
+* Secure password hashing
+* JWT-based authentication
+* Role-Based Access Control (RBAC)
 
-Overview of licence-based services
+### User Roles
 
-Description of licence benefits and use cases
+* **Client**
+* **Administrator**
 
-Call-to-action buttons (Register / Login)
+Access to dashboards, routes, and API endpoints is strictly restricted based on authenticated roles.
 
-Contact and informational sections
+---
 
-Objective:
-Provide a professional first impression and guide visitors toward account creation and platform usage.
+##  Client Space (User Dashboard)
 
-Authentication & Authorization
+Authenticated users gain access to a dedicated **client dashboard**.
 
-The platform implements a secure authentication and authorization system.
+### Client Functionalities
 
-Features
+* Manage personal profile
+* Submit licence requests
+* Select product, licence type & duration
+* Track licence request history
+* Monitor request status:
 
-User registration and login
+  * Pending
+  * Approved
+  * Rejected
+* View assigned licences
+* Check activation & expiration dates
+* Receive automated email notifications
 
-Secure password hashing
+**Objective**
+Offer transparency, autonomy, and real-time visibility over licences.
 
-JWT-based authentication
+---
 
-Role-based access control (RBAC)
+##  Licence Request Workflow
 
-User Roles :
+1. Client submits a licence request
+2. Request is stored with **Pending** status
+3. Administrator is notified
+4. Admin reviews the request
 
-Client
+### Outcomes
 
-Administrator
+* ✅ **Approved** → Licence generated & activated via API
+* ❌ **Rejected** → Client notified by email
 
-Access to pages, dashboards, and API endpoints is strictly restricted based on the authenticated user’s role.
+This workflow ensures **traceability, control, and accountability**.
 
-Client Space (User Dashboard)
+---
 
-Authenticated clients gain access to a dedicated client dashboard.
+## 🛠️ Administrator Dashboard
 
-Client Functionalities
+Restricted to administrators only.
 
-View and manage personal profile
+### Admin Functionalities
 
-Submit licence requests
+* View system statistics (users, licences, requests)
+* Manage client accounts
+* Review all licence requests
+* Approve or reject requests
+* Generate licence keys
+* Activate / deactivate licences
+* Define licence duration & expiration
+* Monitor licence states
+* Receive administrative notifications
 
-Select product, licence type, and duration
+**Objective**
+Centralize all licence and user management operations in a secure interface.
 
-Track licence request history
+---
 
-Monitor request status:
+## 🔗 Licence Management (API-Driven)
 
-Pending
+Licence operations are handled by a **dedicated secure backend API**, developed as a separate service.
 
-Approved
+### Licence Features
 
-Rejected
+* Unique licence key generation
+* Licence association with client & product
+* Activation & deactivation
+* Expiration date management
+* Licence status verification
 
-View assigned licences
+### Licence States
 
-Check licence activation and expiration
+* Active
+* Inactive
+* Expired
 
-Receive automated email notifications
+Licences can be verified by **external applications** through secured API endpoints.
 
-Objective:
-Provide clients with transparency, autonomy, and real-time visibility over their licences.
+🔗 **API Repository**
+👉 [https://github.com/wejdanhaddad/Secure-License-API](https://github.com/wejdanhaddad/Secure-License-API)
 
-Licence Request Workflow
+---
 
-Client submits a licence request
+## 🎨 UI / UX Design
 
-Request is stored with Pending status
+Special attention was given to **UI/UX design** to ensure a professional and intuitive experience.
 
-Administrator is notified
+### UI Principles
 
-Administrator reviews the request
+* Clean & modern interface
+* Consistent layout & visual hierarchy
+* Responsive design
+* Clear typography & spacing
+* Visual feedback (success, error, loading states)
 
-Outcome:
+### UX Approach
 
-Approved → licence is generated and activated via the API
+* User-centered workflows
+* Minimal steps for critical actions
+* Clear navigation between sections
+* Role-based interfaces
+* Explicit status indicators
 
-Rejected → client is notified
+**Objective**
+Deliver a UX comparable to real-world enterprise platforms.
 
-This workflow ensures traceability, control, and accountability.
+---
 
-Administrator Dashboard
+## 📧 Email Notification System
 
-The administration dashboard is restricted to administrators only.
+Automated email notifications are sent after key actions.
 
-Admin Functionalities :
+### Notifications
 
-View system statistics (users, licences, requests)
+* Account creation
+* Licence request submission
+* Licence approval
+* Licence rejection
+* Licence activation
 
-Manage client accounts
-
-Review all licence requests
-
-Approve or reject requests
-
-Generate licence keys
-
-Activate or deactivate licences
-
-Define licence duration and expiration
-
-Monitor licence status
-
-Receive administrative notifications
-
-Objective:
-Centralize all licence and user management operations in a secure and controlled interface.
-
-Licence Management (API-Driven)
-
-Licence operations are handled through a dedicated secure License Management API, developed as a separate backend service.
-
-Licence Features :
-
-Unique licence key generation
-
-Licence association with client and product
-
-Activation and deactivation
-
-Expiration date management
-
-Licence status verification
-
-Licence States
-
-Active
-
-Inactive
-
-Expired
-
-Licences are designed to be verifiable by external applications through secured API endpoints.
-
-UI / UX Design :
-
-Special attention was given to UI/UX design to ensure the platform is intuitive, professional, and easy to use for both clients and administrators.
-
-UI Principles :
-
-Clean and modern interface
-
-Consistent layout and visual hierarchy
-
-Responsive design
-
-Clear typography and spacing
-
-Visual feedback for user actions (success, error, loading)
-
-UX Approach :
-
-User-centered design based on real business workflows
-
-Minimal steps for critical actions (request, approval, activation)
-
-Clear navigation between sections
-
-Role-based interfaces:
-
-Clients see only relevant features
-
-Administrators access advanced management tools
-
-Explicit status indicators (Pending, Approved, Active, Expired)
-
-Objective:
-Deliver a professional user experience comparable to real-world enterprise platforms.
-
-Email Notification System
-
-Automated emails are sent after key actions.
-
-Notifications
-
-Account creation
-
-Licence request submission
-
-Licence approval
-
-Licence rejection
-
-Licence activation
-
-Objective:
+**Objective**
 Ensure clear and timely communication between clients and administrators.
 
-Security Measures :
+---
 
-JWT-based authentication
+##  Security Measures
 
-Role-based access control (RBAC)
+* JWT-based authentication
+* Role-Based Access Control (RBAC)
+* Protected client & admin routes
+* Secured API endpoints
+* Input validation & sanitization
+* Restricted access to sensitive operations
 
-Protected admin and client routes
+Security is enforced at **both frontend and backend levels**.
 
-Secured API endpoints
+---
 
-Input validation and sanitization
+##  Technical Architecture
 
-Restricted access to sensitive operations
+### Architecture Style
 
-Security is enforced both at the frontend and API levels.
+* Layered / MVC architecture
+* REST API–oriented design
+* Separation of concerns
 
-Technical Architecture :
-Architecture Style :
+### Technologies Used
 
-Layered / MVC architecture
+#### Frontend
 
-REST API–oriented design
+* HTML, CSS, JavaScript
+* Bootstrap
+* Twig
+* PHP
 
-Separation of concerns
+#### Backend
 
-Technologies Used :
+* Symfony (vitrine & dashboards)
+* ASP.NET Core / .NET XAF (License Management API)
 
-Frontend :
+#### Database
 
-HTML, CSS, JavaScript
+* SQL Server
 
-Bootstrap
+#### Authentication
 
-Twig / PHP
+* JWT
+* Session-based authentication
 
-Backend :
+#### Mailing
 
-Symfony (vitrine & dashboards)
+* SMTP / Mailer Service
 
-ASP.NET Core / .NET XAF (License Management API)
+#### Admin Interface
 
-Database :
+* EasyAdmin
 
-SQL Server
+#### Version Control
 
-Authentication :
+* Git & GitHub
 
-JWT
+#### Development Tools
 
-Session-based authentication
+* Visual Studio
+* Visual Studio Code
 
-Mailing :
+---
 
-SMTP / Mailer service
-
-Admin Interface
-
-EasyAdmin
-
-Version Control :
-
-GitHub
-
-Development Tools :
-
-Visual Studio
-
-Visual Studio Code
-
-Related Project :
-
-This repository works in conjunction with a Secure License Management API, responsible for:
-
-Licence generation
-
-Licence activation/deactivation
-
-Licence verification
-
-Secure access using JWT and roles
-
-Project Purpose :
+##  Project Purpose
 
 This project demonstrates:
 
-Full-stack web development skills
+* Full-stack web development expertise
+* Secure API integration
+* Professional licence management workflows
+* Clean, scalable & maintainable architecture
+* Industry-aligned software engineering practices
 
-Secure API integration
+---
 
-Real-world licence management workflows
+## 📄 License
 
-Clean, maintainable, and scalable architecture
+This project was developed **for academic purposes (PFE)**.
 
-Professional software engineering practices
-
-License :
-
-This project was developed for academic purposes (PFE).
-All rights reserved.
+**All rights reserved.**
 Commercial use is prohibited without explicit author permission.
+
+---
+
+✨ *Designed & developed as a professional-grade licence management platform.*
