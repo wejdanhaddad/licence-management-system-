@@ -1,4 +1,4 @@
-# 🚀 Twinkle-IT Licence Management Platform
+# Twinkle-IT Licence Management Platform
 
 > **Vitrine Website • Client Dashboard • Admin Dashboard • Secure API Integration**
 
